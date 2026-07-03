@@ -1,0 +1,28 @@
+spring:
+  # 集成测试不连真实 SMTP，但需保留 JavaMailSender Bean（EmailServiceImpl 依赖）
+  mail:
+    host: localhost
+    port: 3025
+    username: integration-test@teammatch.local
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:integration-schema.sql
+  data:
+    redis:
+      timeout: 3000ms
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+logging:
+  level:
+    com.teammatch: INFO

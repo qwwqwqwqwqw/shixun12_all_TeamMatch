@@ -1,0 +1,161 @@
+<view class="hub-page" wx:if="{{isAuthenticated}}">
+  <view class="hero">
+    <text class="eyebrow">TeamMatch · 测试入口</text>
+    <text class="title">功能选择</text>
+    <text class="desc">登录后可从这里进入各功能页，便于分模块测试。</text>
+  </view>
+
+  <view class="card-list">
+    <view class="entry-card entry-card--blue" bindtap="goTeamRequests">
+      <view class="entry-main">
+        <text class="entry-title">组队管理</text>
+        <text class="entry-subtitle">收到/发出申请，支持接受、拒绝、撤回</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--green" bindtap="goProjectMembers">
+      <view class="entry-main">
+        <text class="entry-title">项目成员列表</text>
+        <text class="entry-subtitle">成员查看、队长移除与退出项目流程</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--orange" bindtap="goExitProject">
+      <view class="entry-main">
+        <text class="entry-title">退出项目</text>
+        <text class="entry-subtitle">成员主动退出，确认扣分与二次弹窗</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--red" bindtap="goExitVoteDetail">
+      <view class="entry-main">
+        <text class="entry-title">退出投票详情</text>
+        <text class="entry-subtitle">投票表决、倒计时、统计与关闭</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--purple" bindtap="goEvaluation">
+      <view class="entry-main">
+        <text class="entry-title">互评</text>
+        <text class="entry-subtitle">四维评分、标签选择、技能点赞与提交</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--cyan" bindtap="goCreditHistory">
+      <view class="entry-main">
+        <text class="entry-title">信誉分变化</text>
+        <text class="entry-subtitle">查看信誉分当前分数与历史变化记录</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--pink" bindtap="goReport">
+      <view class="entry-main">
+        <text class="entry-title">举报</text>
+        <text class="entry-subtitle">举报用户或项目，维护平台秩序</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--indigo" bindtap="goAppeal">
+      <view class="entry-main">
+        <text class="entry-title">申诉</text>
+        <text class="entry-subtitle">对评价或处罚结果提出申诉</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--teal" bindtap="goMyReports">
+      <view class="entry-main">
+        <text class="entry-title">我的举报</text>
+        <text class="entry-subtitle">查看已提交的举报记录</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--amber" bindtap="goMyAppeals">
+      <view class="entry-main">
+        <text class="entry-title">我的申诉</text>
+        <text class="entry-subtitle">查看已提交的申诉记录</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--blue" bindtap="goProfileEdit">
+      <view class="entry-main">
+        <text class="entry-title">个人档案编辑</text>
+        <text class="entry-subtitle">编辑个人昵称、学校、专业等档案信息</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--green" bindtap="goSkills">
+      <view class="entry-main">
+        <text class="entry-title">技能标签选择</text>
+        <text class="entry-subtitle">选择擅长的技能标签，支持按分类多选</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--blue" bindtap="goEmailVerify">
+      <view class="entry-main">
+        <text class="entry-title">邮箱认证</text>
+        <text class="entry-subtitle">绑定邮箱，完成身份认证</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--green" bindtap="goProjectList">
+      <view class="entry-main">
+        <text class="entry-title">项目列表</text>
+        <text class="entry-subtitle">浏览所有招募中的项目</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--blue" bindtap="goProjectDetail">
+      <view class="entry-main">
+        <text class="entry-title">项目详情</text>
+        <text class="entry-subtitle">查看项目完整信息和成员列表</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--green" bindtap="goProjectCreate">
+      <view class="entry-main">
+        <text class="entry-title">发布项目</text>
+        <text class="entry-subtitle">创建新项目，填写需求并招募队友</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--orange" bindtap="goLeaderboard">
+      <view class="entry-main">
+        <text class="entry-title">技术排行榜</text>
+        <text class="entry-subtitle">查看技术榜单，发现身边的优秀开发者</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--red" bindtap="goProfileClaim">
+      <view class="entry-main">
+        <text class="entry-title">认领技术画像</text>
+        <text class="entry-subtitle">完成认证，让你的技术实力被更多人看到</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-card entry-card--purple" bindtap="goMyCenter">
+      <view class="entry-main">
+        <text class="entry-title">个人中心</text>
+        <text class="entry-subtitle">查看档案、信誉分、项目与技能管理</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,419 @@
+page {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background: #F8FAFC;
+  color: #0F172A;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  background: #F8FAFC;
+  box-sizing: border-box;
+}
+
+/* ========== 滚动区 ========== */
+.sv {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 48rpx;
+  padding-top: 48rpx;
+  overflow-y: auto;
+}
+
+/* ========== 头部标题 ========== */
+.header {
+  margin-bottom: 48rpx;
+}
+
+.header-eyebrow {
+  display: block;
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 600;
+  letter-spacing: 0.7rpx;
+  line-height: 40rpx;
+}
+
+.header-title {
+  display: block;
+  font-size: 60rpx;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 72rpx;
+  margin-top: 8rpx;
+}
+
+.header-desc {
+  display: block;
+  font-size: 32rpx;
+  color: #64748B;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-top: 16rpx;
+}
+
+/* ========== 目标成员信息卡片 ========== */
+.member-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 34rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.03);
+  border: 2rpx solid rgba(194, 198, 213, 0.20);
+}
+
+.member-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: rgba(0, 88, 187, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+  border: 4rpx solid #ffffff;
+}
+
+.member-avatar-text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0058BB;
+}
+
+.member-info {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+
+.member-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #191C22;
+  display: block;
+}
+
+.member-id {
+  font-size: 26rpx;
+  color: #727784;
+  display: block;
+  margin-top: 4rpx;
+}
+
+.member-credit {
+  display: inline-flex;
+  background: rgba(0, 88, 187, 0.08);
+  border-radius: 8rpx;
+  padding: 4rpx 16rpx;
+  margin-top: 8rpx;
+}
+
+.member-credit-txt {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #0058BB;
+}
+
+/* ========== 投票原因输入区 ========== */
+.reason-section {
+  margin-bottom: 32rpx;
+}
+
+.reason-label {
+  display: block;
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 600;
+  line-height: 40rpx;
+  margin-bottom: 16rpx;
+  margin-left: 8rpx;
+}
+
+.required {
+  color: #EF4444;
+}
+
+.reason-input-wrap {
+  position: relative;
+  background: #F1F5F9;
+  border-radius: 32rpx;
+  overflow: hidden;
+}
+
+.reason-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 32rpx;
+  font-size: 32rpx;
+  color: #0F172A;
+  font-weight: 400;
+  line-height: 48rpx;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.reason-placeholder {
+  color: #94A3B8;
+  font-size: 32rpx;
+  font-weight: 400;
+}
+
+.char-count {
+  position: absolute;
+  bottom: 16rpx;
+  right: 16rpx;
+  padding: 8rpx 16rpx;
+  background: rgba(255, 255, 255, 0.50);
+  border-radius: 12rpx;
+}
+
+.char-count-text {
+  font-size: 24rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  font-family: Plus Jakarta Sans, sans-serif;
+}
+
+/* ========== 退出性质选择 ========== */
+.penalty-section {
+  margin-bottom: 32rpx;
+}
+
+.penalty-label {
+  display: block;
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 600;
+  line-height: 40rpx;
+  margin-bottom: 16rpx;
+  margin-left: 8rpx;
+}
+
+.penalty-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.penalty-option {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx 32rpx;
+  border: 2rpx solid rgba(194, 198, 213, 0.30);
+  transition: all 0.2s;
+}
+
+.penalty-option.selected {
+  border-color: #0058BB;
+  background: rgba(0, 88, 187, 0.04);
+  box-shadow: 0 4rpx 16rpx rgba(0, 88, 187, 0.08);
+}
+
+.penalty-option-hd {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.penalty-radio {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 3rpx solid #C2C6D5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.penalty-radio.checked {
+  border-color: #0058BB;
+}
+
+.penalty-radio-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: #0058BB;
+}
+
+.penalty-option-label {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.penalty-option-score {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #EF4444;
+  margin-left: auto;
+  background: #FEF2F2;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx;
+}
+
+.penalty-option.selected .penalty-option-score {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.penalty-option-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #94A3B8;
+  margin-top: 12rpx;
+  margin-left: 56rpx;
+}
+
+/* ========== 规则说明 ========== */
+.rules-card {
+  background: #F1F5F9;
+  border-radius: 20rpx;
+  padding: 28rpx 32rpx;
+  margin-bottom: 32rpx;
+}
+
+.rules-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #64748B;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.rules-item {
+  font-size: 26rpx;
+  color: #94A3B8;
+  line-height: 40rpx;
+}
+
+/* ========== 底部操作区 ========== */
+.bottom-actions {
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 32rpx 48rpx;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  background: #F8FAFC;
+}
+
+.btn-confirm {
+  width: 100%;
+  height: 108rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 32rpx;
+  background: #EF4444;
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 12rpx -8rpx rgba(239, 68, 68, 0.20),
+              0 20rpx 30rpx -6rpx rgba(239, 68, 68, 0.20);
+}
+
+.btn-confirm::after { border: 0; }
+
+.btn-confirm[disabled] {
+  opacity: 0.6;
+  box-shadow: none !important;
+}
+
+/* ========== 二次确认弹窗 ========== */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 560rpx;
+  background: #ffffff;
+  border-radius: 32rpx;
+  padding: 48rpx;
+  box-sizing: border-box;
+}
+
+.modal-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #0F172A;
+  text-align: center;
+  line-height: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.modal-content {
+  display: block;
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 400;
+  line-height: 44rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.modal-em {
+  color: #EF4444;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 24rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 96rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 96rpx;
+  text-align: center;
+}
+
+.modal-btn::after { border: 0; }
+
+.modal-btn-cancel {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+.modal-btn-confirm {
+  background: #EF4444;
+  color: #ffffff;
+}
+
+.modal-btn-confirm[disabled] {
+  opacity: 0.6;
+}

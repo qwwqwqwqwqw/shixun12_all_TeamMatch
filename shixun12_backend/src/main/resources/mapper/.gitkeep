@@ -1,0 +1,11 @@
+# MyBatis XML 映射文件目录
+
+此目录存放 MyBatis XML 映射文件。
+
+## 命名规范
+
+文件名与 Mapper 接口对应：
+- UserMapper.xml
+- ProjectMapper.xml
+- TeamMemberMapper.xml
+- etc.

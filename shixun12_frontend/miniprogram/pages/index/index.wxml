@@ -1,0 +1,119 @@
+<view class="page">
+  <!-- 顶部区域 -->
+  <view class="hero">
+    <view class="hero-left">
+      <text class="hero-logo">TeamMatch</text>
+      <text class="hero-title">发现你的队友</text>
+      <text class="hero-sub">浏览技术榜单，找到志同道合的伙伴</text>
+    </view>
+  </view>
+
+  <view class="card marketplace-card" bindtap="goProjectList">
+    <view class="mp-bg"></view>
+    <view class="mp-content">
+      <view class="mp-badge">热门推荐</view>
+      <text class="mp-title">项目广场 🚀</text>
+      <text class="mp-desc">浏览全校项目，找到心仪团队并申请加入</text>
+      <view class="mp-btn"><text>立即探索</text></view>
+    </view>
+  </view>
+
+  <view class="card create-card" bindtap="goCreateProject">
+    <view class="mp-content">
+      <view class="mp-badge create-badge">发起项目</view>
+      <text class="mp-title">创建项目 ✨</text>
+      <text class="mp-desc">发布你的项目，招募志同道合的队友</text>
+      <view class="mp-btn create-btn"><text>立即创建</text></view>
+    </view>
+  </view>
+
+  <view class="card match-card" bindtap="goMemberMatch">
+    <view class="mp-content">
+      <view class="mp-badge match-badge">智能匹配</view>
+      <text class="mp-title">推荐成员 👥</text>
+      <text class="mp-desc">根据项目技能标签匹配最合适的队友</text>
+      <view class="mp-btn match-btn"><text>去看看</text></view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="sec-hd">
+      <text class="sec-title">热门榜单</text>
+      <text class="sec-more" bindtap="goLeaderboard">查看全部</text>
+    </view>
+    <view class="board-grid">
+      <view class="board-item" wx:for="{{boards}}" wx:key="name" bindtap="goLeaderboard" data-sort="{{item.sort}}">
+        <text class="board-icon">{{item.emoji}}</text>
+        <text class="board-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 技术画像 -->
+  <view class="card profile-card">
+    <view class="profile-row">
+      <text class="profile-icon">📊</text>
+      <view class="profile-info">
+        <text class="profile-title">技术画像</text>
+        <text class="profile-desc" wx:if="{{hasTechProfile}}">技术评分 {{techScore}} 分{{boundPlatform === 'github' ? ' · [GitHub] ' + (boundGithub || boundGitee) : boundPlatform === 'gitee' ? ' · [Gitee] ' + (boundGitee || boundGithub) : ''}}</text>
+        <text class="profile-desc" wx:else>绑定 GitHub 或 Gitee，查看技术排名</text>
+      </view>
+    </view>
+
+    <!-- 已绑定 -->
+    <block wx:if="{{hasTechProfile}}">
+      <view class="tech-stats">
+        <view class="tech-stat"><text class="ts-num">{{totalRepos}}</text><text class="ts-label">仓库</text></view>
+        <view class="tech-stat"><text class="ts-num">{{totalStars}}</text><text class="ts-label">Stars</text></view>
+        <view class="tech-stat"><text class="ts-num">{{totalPrs}}</text><text class="ts-label">PR</text></view>
+        <view class="tech-stat"><text class="ts-num">{{totalCommits}}</text><text class="ts-label">Commits</text></view>
+      </view>
+      <view class="tech-langs" wx:if="{{topLanguages.length > 0}}">
+        <text class="tl-label">主力语言：</text>
+        <text class="tl-chip" wx:for="{{topLanguages}}" wx:key="*this" wx:for-item="lang">{{lang}}</text>
+      </view>
+
+      <!-- 换绑 -->
+      <view wx:if="{{!showUpdateInput}}" style="margin-top:12rpx;">
+        <view class="btn-gen" bindtap="choosePlatform" data-type="update"><text>换绑</text></view>
+      </view>
+      <view wx:if="{{showUpdateInput}}" style="margin-top:12rpx;">
+        <view class="profile-input-row">
+          <input class="profile-input" maxlength="30" placeholder="{{updatePlatform === 'gitee' ? '输入 Gitee 用户名' : '输入 GitHub 用户名'}}" placeholder-class="ph" value="{{inputUsername}}" bindinput="onInput"/>
+          <view class="btn-gen" bindtap="doUpdate"><text>确认</text></view>
+          <view class="btn-gen" bindtap="cancelUpdate" style="background:#ccc;width:80px;flex-shrink:0;"><text>取消</text></view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 未绑定 -->
+    <block wx:else>
+      <view wx:if="{{!showBindInput}}" style="margin-top:12rpx;">
+        <view class="btn-gen" bindtap="choosePlatform" data-type="bind" style="width:100%;"><text>选择平台生成</text></view>
+      </view>
+      <view wx:if="{{showBindInput}}" style="margin-top:12rpx;">
+        <view class="profile-input-row">
+          <input class="profile-input" maxlength="30" placeholder="{{bindPlatform === 'gitee' ? '输入 Gitee 用户名' : '输入 GitHub 用户名'}}" placeholder-class="ph" value="{{inputUsername}}" bindinput="onInput"/>
+          <view class="btn-gen" bindtap="doBind"><text>确认</text></view>
+          <view class="btn-gen" bindtap="cancelBind" style="background:#ccc;width:80px;flex-shrink:0;"><text>取消</text></view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- Gitee OAuth 弹窗 -->
+  <view class="oauth-mask" wx:if="{{showOauthModal}}" catchtap="closeOauthModal">
+    <view class="oauth-card" catchtap="">
+      <text class="oauth-title">🐴 Gitee OAuth 一键绑定</text>
+      <text class="oauth-desc">授权链接已复制到剪贴板。请在手机浏览器中粘贴并打开，登录 Gitee 完成授权。</text>
+      <view class="oauth-steps">
+        <text class="oauth-step">1. 打开手机浏览器</text>
+        <text class="oauth-step">2. 粘贴链接并打开</text>
+        <text class="oauth-step">3. 登录 Gitee 并授权</text>
+        <text class="oauth-step">4. 返回小程序，点击下方按钮</text>
+      </view>
+      <button class="oauth-btn" bindtap="checkOauthStatus" loading="{{oauthChecking}}">🔄 检查授权状态</button>
+      <view class="oauth-close" bindtap="closeOauthModal">关闭</view>
+    </view>
+  </view>
+</view>

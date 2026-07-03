@@ -1,0 +1,172 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-row">
+      <view class="hero-copy">
+        <text class="hero-title">组队中心</text>
+        <text class="hero-sub">探索项目、管理你的团队</text>
+      </view>
+      <view wx:if="{{activeTab==='joined'}}" class="hero-back" bindtap="goMyCenter">
+        <text class="hero-back-icon">‹</text>
+        <text class="hero-back-text">返回</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab {{activeTab==='discover'?'tab--active':''}}" data-tab="discover" bindtap="switchTab">发现项目</view>
+    <view class="tab {{activeTab==='joined'?'tab--active':''}}" data-tab="joined" bindtap="switchTab">已加入项目</view>
+  </view>
+
+  <!-- 发现项目 -->
+  <view wx:if="{{activeTab==='discover'}}">
+    <view class="card hero-card" bindtap="goProjectList">
+      <view class="hc-left">
+        <text class="hc-title">项目广场</text>
+        <text class="hc-sub">浏览全校所有项目，找到适合你的团队</text>
+      </view>
+      <view class="hc-btn"><text>去看看</text></view>
+    </view>
+
+    <view class="card" bindtap="goTeamRequests">
+      <text class="card-row-icon">📩</text>
+      <view class="card-row-info">
+        <text class="card-row-title">我的请求</text>
+        <text class="card-row-desc">查看收到的邀请和发出的申请</text>
+      </view>
+      <text class="card-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 已加入项目 -->
+  <view wx:if="{{activeTab==='joined'}}">
+    <view class="card proj-card {{expandedId===item.id?'proj-card--expanded':''}}" wx:for="{{joinedProjects}}" wx:key="id">
+      <!-- 头部：始终可见，点击展开/收起 -->
+      <view class="proj-header" bindtap="toggleExpand" data-id="{{item.id}}">
+        <view class="proj-left" catchtap="goProjectDetail" data-id="{{item.id}}">
+          <view class="proj-avatar">{{item.name[0]}}</view>
+          <view class="proj-info">
+            <text class="proj-name">{{item.name}}</text>
+            <text class="proj-meta"><text class="proj-type">{{item.boardName || '未分类'}}</text> · {{item.members}}人 · <text class="status-tag {{item.status}}">{{item.statusText}}</text></text>
+          </view>
+        </view>
+        <text class="proj-expand-arrow {{expandedId===item.id?'arrow-rotated':''}}">▼</text>
+      </view>
+
+      <!-- 展开面板：向下滑出 -->
+      <view class="proj-expand-panel {{expandedId===item.id?'panel--open':''}}">
+        <view class="proj-expand-inner">
+          <!-- 队长专属：下一阶段按钮 -->
+        <view wx:if="{{item.isLeader && item.status==='recruiting'}}" class="proj-stage-btn proj-stage-start" catchtap="handleStartProject" data-id="{{item.id}}" data-name="{{item.name}}">
+          <text class="stage-icon">▶</text>
+          <view class="stage-info">
+            <text class="stage-title">开始项目</text>
+            <text class="stage-desc">招募完成，项目正式进行</text>
+          </view>
+          <text class="stage-arrow">›</text>
+        </view>
+        <view wx:if="{{item.isLeader && item.status==='in_progress'}}" class="proj-stage-btn proj-stage-end" catchtap="handleEndProject" data-id="{{item.id}}" data-name="{{item.name}}">
+          <text class="stage-icon">⏹</text>
+          <view class="stage-info">
+            <text class="stage-title">结束项目</text>
+            <text class="stage-desc">项目已完成，进入互评阶段</text>
+          </view>
+          <text class="stage-arrow">›</text>
+        </view>
+
+        <view wx:if="{{item.isLeader && (item.status==='recruiting' || item.status==='in_progress')}}" class="proj-divider"></view>
+
+        <!-- 操作按钮组 -->
+        <view class="proj-actions">
+          <view class="proj-act proj-act-members" catchtap="goProjectMembers" data-id="{{item.id}}">成员管理</view>
+          <view class="proj-act {{item.status==='ended'?'proj-act-eval':'proj-act-disabled'}}" catchtap="{{item.status==='ended'?'goEvaluation':''}}" data-id="{{item.id}}" data-name="{{item.name}}">互评</view>
+        </view>
+        <view class="proj-actions proj-actions-secondary">
+          <view class="proj-act proj-act-exit" catchtap="goExitProject" data-id="{{item.id}}">退出项目</view>
+          <view class="proj-act proj-act-vote" catchtap="goVoteManagement" data-id="{{item.id}}" data-name="{{item.name}}">投票管理</view>
+        </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 已结束项目（折叠区） -->
+    <view wx:if="{{endedProjects.length > 0}}">
+      <view class="ended-toggle" bindtap="toggleEnded">
+        <text class="ended-toggle-text">已结束项目 ({{endedProjects.length}})</text>
+        <text class="ended-toggle-arrow {{showEndedProjects?'arrow-rotated':''}}">▼</text>
+      </view>
+
+      <block wx:if="{{showEndedProjects}}">
+        <view class="card proj-card proj-card-ended" wx:for="{{endedProjects}}" wx:key="id">
+          <view class="proj-header" bindtap="goProjectDetail" data-id="{{item.id}}">
+            <view class="proj-left">
+              <view class="proj-avatar proj-avatar-ended">{{item.name[0]}}</view>
+              <view class="proj-info">
+                <text class="proj-name proj-name-ended">{{item.name}}</text>
+                <text class="proj-meta"><text class="proj-type">{{item.boardName || '未分类'}}</text> · {{item.members}}人 · <text class="status-tag {{item.status}}">{{item.statusText}}</text></text>
+              </view>
+            </view>
+            <text class="proj-expand-arrow">›</text>
+          </view>
+          <view class="ended-actions">
+            <view class="ended-act ended-act-detail" catchtap="goProjectDetail" data-id="{{item.id}}">项目详情</view>
+            <view wx:if="{{item.status==='ended'}}" class="ended-act ended-act-eval" catchtap="goEvaluation" data-id="{{item.id}}" data-name="{{item.name}}">互评</view>
+            <view wx:else class="ended-act ended-act-closed">已截止</view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 待处理退出投票 -->
+    <view class="section-hd" wx:if="{{pendingVotes.length>0}}">
+      <text class="section-title">待处理投票</text>
+      <text class="section-badge">{{pendingVotes.length}}</text>
+    </view>
+    <view class="card vote-card" wx:for="{{pendingVotes}}" wx:key="id" bindtap="goExitVoteDetail" data-vote-id="{{item.id}}" data-project-id="{{item.projectId}}">
+      <view class="vote-card-left">
+        <text class="vote-project">{{item.projectName}}</text>
+        <text class="vote-target">目标成员</text>
+        <text class="vote-status {{item.status==='voting'?'vote-active':''}}">{{item.status==='voting'?'投票中':'已结束'}}</text>
+      </view>
+      <text class="card-arrow">›</text>
+    </view>
+
+    <view class="empty" wx:if="{{joinedProjects.length===0 && endedProjects.length===0}}">
+      <text class="empty-text">暂未加入任何项目</text>
+      <view class="btn-link" bindtap="switchTab" data-tab="discover">去发现项目</view>
+    </view>
+  </view>
+
+  <!-- 确认弹窗：开始项目 -->
+  <view class="modal-mask" wx:if="{{showStartConfirm}}" bindtap="closeConfirm">
+    <view class="modal-card" catchtap="">
+      <text class="modal-title">确认开始项目</text>
+      <text class="modal-project-name">{{confirmProjectName}}</text>
+      <view class="modal-body">
+        <text class="modal-desc">开始后项目将进入【进行中】状态：</text>
+        <text class="modal-desc modal-desc-warn">· 不可再自由加入新成员</text>
+        <text class="modal-desc modal-desc-warn">· 成员退出将扣除信誉分</text>
+      </view>
+      <view class="modal-actions">
+        <view class="modal-btn modal-btn-cancel" bindtap="closeConfirm">再想想</view>
+        <view class="modal-btn modal-btn-confirm" bindtap="confirmStartProject">确认开始</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 确认弹窗：结束项目 -->
+  <view class="modal-mask" wx:if="{{showEndConfirm}}" bindtap="closeConfirm">
+    <view class="modal-card" catchtap="">
+      <text class="modal-title">确认结束项目</text>
+      <text class="modal-project-name">{{confirmProjectName}}</text>
+      <view class="modal-body">
+        <text class="modal-desc">结束后项目将进入【已结束】状态：</text>
+        <text class="modal-desc modal-desc-warn">· 所有成员将进入互评阶段</text>
+        <text class="modal-desc modal-desc-warn">· 此操作不可撤销</text>
+      </view>
+      <view class="modal-actions">
+        <view class="modal-btn modal-btn-cancel" bindtap="closeConfirm">再想想</view>
+        <view class="modal-btn modal-btn-confirm modal-btn-danger" bindtap="confirmEndProject">确认结束</view>
+      </view>
+    </view>
+  </view>
+</view>

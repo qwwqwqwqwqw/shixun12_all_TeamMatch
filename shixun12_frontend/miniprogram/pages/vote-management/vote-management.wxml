@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">{{projectName}} · 退出投票</text>
+    <text class="hero-sub">管理项目中的成员退出投票</text>
+  </view>
+
+  <!-- 加载态 -->
+  <view class="state-wrap" wx:if="{{loading}}">
+    <text class="state-text">加载中...</text>
+  </view>
+
+  <!-- 错误态 -->
+  <view class="state-wrap" wx:elif="{{error}}">
+    <text class="state-text error">{{error}}</text>
+    <view class="retry-btn" bindtap="loadVotes">重试</view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="state-wrap" wx:elif="{{votes.length === 0}}">
+    <text class="state-text">暂无退出投票</text>
+    <text class="state-desc">当有成员发起退出投票时，将在此处显示</text>
+  </view>
+
+  <!-- 投票列表 -->
+  <view wx:else>
+    <view class="vote-item" wx:for="{{votes}}" wx:key="id" bindtap="goVoteDetail" data-vote-id="{{item.id}}">
+      <view class="vote-item-top">
+        <view class="vote-item-left">
+          <text class="vote-target-id">目标成员</text>
+          <view class="vote-tags">
+            <text class="vtag vtag-status {{item.status==='voting'?'vtag-active':''}}">{{item.statusLabel}}</text>
+            <text class="vtag vtag-penalty {{item.penaltyLevel==='malicious'?'vtag-red':''}}">{{item.penaltyLabel}}</text>
+          </view>
+        </view>
+        <text class="card-arrow">›</text>
+      </view>
+      <view class="vote-item-bottom">
+        <text class="vote-meta">👍 {{item.agreeCount}}</text>
+        <text class="vote-meta">👎 {{item.disagreeCount}}</text>
+        <text class="vote-meta">共 {{item.totalVoters}} 人投票</text>
+      </view>
+      <view class="vote-item-result" wx:if="{{item.result}}">
+        <text class="result-text">结果: {{item.resultLabel}}</text>
+      </view>
+    </view>
+  </view>
+</view>

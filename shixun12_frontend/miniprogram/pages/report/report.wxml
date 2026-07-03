@@ -1,0 +1,133 @@
+<view class="page page-safe">
+  <!-- 吸顶头部区 -->
+  <view class="page-sticky">
+    <text class="hd-sub">TeamMatch</text>
+    <text class="hd-desc">提交举报信息，维护平台秩序</text>
+
+    <!-- 举报类型选择 -->
+    <view class="type-row">
+      <view class="type-card {{reportType === 'user' ? 'active' : ''}}" data-type="user" bindtap="switchType">
+        <text class="type-icon">👤</text>
+        <text class="type-label">举报用户</text>
+      </view>
+      <view class="type-card {{reportType === 'project' ? 'active' : ''}}" data-type="project" bindtap="switchType">
+        <text class="type-icon">📁</text>
+        <text class="type-label">举报项目</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="sv sv-safe" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 被举报对象 -->
+    <view class="sec">
+      <!-- 搜索框（分左右两段） -->
+      <view class="search-box">
+        <view class="search-icon-area">
+          <text class="search-icon">🔍</text>
+        </view>
+        <view class="search-input-area">
+          <input
+            class="search-input"
+            placeholder="{{reportType === 'user' ? '搜索或输入用户名称' : '搜索或输入项目名称'}}"
+            placeholder-class="search-ph"
+            value="{{searchKeyword}}"
+            bindinput="onSearchInput"
+          />
+        </view>
+      </view>
+
+      <!-- 搜索结果列表 -->
+      <view class="search-results no-flash" wx:if="{{searchResults.length > 0}}">
+        <view
+          class="search-item"
+          wx:for="{{searchResults}}" wx:key="id"
+          data-item="{{item}}"
+          bindtap="selectTarget"
+        >
+          <image wx:if="{{item.avatarUrl}}" class="search-item-avatar" src="{{item.avatarUrl}}" mode="aspectFill" />
+          <view wx:else class="search-item-avatar">{{item.avatarText || item.name[0]}}</view>
+          <view class="search-item-info">
+            <text class="search-item-name">{{item.name}}</text>
+            <text class="search-item-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 已选对象卡片 -->
+      <view class="target-card" wx:if="{{selectedTarget}}">
+        <view class="target-left">
+          <image wx:if="{{selectedTarget.avatarUrl}}" class="target-avatar" src="{{selectedTarget.avatarUrl}}" mode="aspectFill" />
+          <view wx:else class="target-avatar">{{selectedTarget.avatarText || selectedTarget.name[0]}}</view>
+          <view class="target-info">
+            <view class="target-name-row">
+              <text class="target-name">{{selectedTarget.name}}</text>
+              <view class="target-grade" wx:if="{{selectedTarget.grade}}">
+                <text class="target-grade-text">{{selectedTarget.grade}}</text>
+              </view>
+            </view>
+            <text class="target-desc">{{selectedTarget.desc}}</text>
+          </view>
+        </view>
+        <view class="target-remove" bindtap="removeTarget">
+          <text class="target-remove-icon">✕</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 举报原因 -->
+    <view class="sec">
+      <text class="sec-label">举报原因</text>
+      <view class="reason-group">
+        <view
+          class="reason-tag {{_tagStates[item] ? 'on' : 'off'}}"
+          wx:for="{{reasons}}" wx:for-index="idx" wx:key="idx"
+          data-reason="{{item}}"
+          bindtap="toggleReason"
+        ><text>{{item}}</text></view>
+      </view>
+    </view>
+
+    <!-- 详细说明 -->
+    <view class="sec">
+      <text class="sec-label">详细说明</text>
+      <view class="desc-box">
+        <textarea
+          class="desc-input"
+          placeholder="请详细描述举报原因..."
+          placeholder-class="desc-ph"
+          maxlength="{{maxDescriptionLength}}"
+          value="{{description}}"
+          bindinput="onDescriptionInput"
+        />
+        <text class="desc-count">{{descriptionLength}}/{{maxDescriptionLength}}</text>
+      </view>
+    </view>
+
+    <!-- 证据上传 -->
+    <view class="sec">
+      <view class="upload-area" bindtap="chooseImage">
+        <text class="upload-icon">📎</text>
+        <text class="upload-text">上传截图证据（选填）</text>
+      </view>
+      <!-- 已上传图片缩略图 -->
+      <view class="thumb-list" wx:if="{{images.length > 0}}">
+        <view class="thumb-item" wx:for="{{images}}" wx:for-index="imgIdx" wx:key="*this">
+          <image class="thumb-img" src="{{item.tempPath || item}}" mode="aspectFill" />
+          <view class="thumb-del" data-index="{{imgIdx}}" bindtap="deleteImage">
+            <text class="thumb-del-icon">✕</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部提交按钮 -->
+    <view class="bottom-area">
+      <button
+        class="btn-submit {{canSubmit && !submitting ? '' : 'disabled'}}"
+        disabled="{{!canSubmit || submitting}}"
+        loading="{{submitting}}"
+        bindtap="handleSubmit"
+      >提交举报</button>
+    </view>
+  </scroll-view>
+</view>

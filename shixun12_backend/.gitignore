@@ -1,0 +1,13 @@
+﻿target/
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*.log
+replay_pid*.log
+.env
+.env.*
+src/main/resources/application-local.yml
+.claude/
+.vscode/
+M5_WORK_ORDER.md

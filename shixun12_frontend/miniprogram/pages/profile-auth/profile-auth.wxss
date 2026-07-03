@@ -1,0 +1,187 @@
+/*
+ * 风格对齐：exit-vote-detail 参考页面
+ * 背景: #F9F9FF; 标题色: #191C22; 次要色: #424753; 辅助色: #727784
+ * 主色蓝: #0058BB; 边框: #F2F3FC
+ */
+
+page {
+  width: 100%;
+  min-height: 100vh;
+  background: #F9F9FF;
+  color: #191C22;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: #F9F9FF;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+}
+
+/* ========== 吸顶固定区 ========== */
+.page-sticky {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 32rpx 0 0;
+  box-sizing: border-box;
+}
+
+/* ========== 头部 ========== */
+.hd-sub {
+  display: block;
+  text-align: center;
+  font-size: 32rpx;
+  color: #727784;
+  font-weight: 500;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 48rpx;
+}
+
+.hd-title {
+  display: block;
+  text-align: center;
+  font-size: 40rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 56rpx;
+  margin-top: 32rpx;
+}
+
+.hd-desc {
+  display: block;
+  text-align: center;
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-top: 16rpx;
+}
+
+/* ========== 可滑动区 ========== */
+.sv {
+  flex: 1;
+  width: 100%;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* ========== 卡片 ========== */
+.card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.03);
+  border: 2rpx solid #F2F3FC;
+  box-sizing: border-box;
+  margin-top: 24rpx;
+  padding: 34rpx;
+}
+
+/* ========== 表单字段 ========== */
+.form-item {
+  margin-bottom: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-item-last {
+  margin-bottom: 0;
+  align-items: stretch;
+}
+
+.form-label {
+  display: block;
+  align-self: flex-start;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-bottom: 12rpx;
+}
+
+/* ========== 头像按钮 ========== */
+.avatar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200rpx;
+  height: 200rpx;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  line-height: normal;
+}
+
+.avatar-btn::after {
+  border: 0;
+}
+
+.avatar-img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #ECEDF7;
+  border: 4rpx solid #F2F3FC;
+}
+
+.avatar-tip {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #727784;
+  line-height: 36rpx;
+}
+
+/* ========== 输入框 ========== */
+.form-input {
+  display: block;
+  width: 100%;
+  height: 96rpx;
+  padding: 0 24rpx;
+  background: #ffffff;
+  border: 2rpx solid #F2F3FC;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 96rpx;
+  box-sizing: border-box;
+}
+
+.ph {
+  color: #C2C6D5;
+}
+
+/* ========== 按钮区 ========== */
+.btn-wrap {
+  padding: 32rpx 0 48rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 24rpx;
+  background: #0058BB;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 96rpx;
+  text-align: center;
+}
+
+.submit-btn::after {
+  border: 0;
+}
+
+.submit-btn[disabled] {
+  background: rgba(194, 198, 213, 0.30);
+  color: #727784;
+  opacity: 1;
+}

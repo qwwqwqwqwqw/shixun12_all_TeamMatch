@@ -1,0 +1,129 @@
+<view class="eval-page">
+  <!-- 固定头部区（吸顶不跟随滑动） -->
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TEAMMATCH</text>
+      <text class="hd-title">互评</text>
+      <text class="hd-desc">对项目成员进行协作评价</text>
+    </view>
+  </view>
+
+  <!-- 加载态 -->
+  <view class="st-wrap" wx:if="{{loading}}">
+    <view class="ld-spin"></view>
+    <text class="st-txt">加载中...</text>
+  </view>
+
+  <!-- 错误态 -->
+  <view class="st-wrap" wx:elif="{{error}}">
+    <text class="st-txt">{{error}}</text>
+    <button class="retry-btn" bindtap="loadTargetUser">重试</button>
+  </view>
+
+  <!-- 内容区 + 底部固定按钮 -->
+  <view class="content-body" wx:else>
+    <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- 被评价人信息卡片 -->
+      <view class="card info-card">
+        <view class="info-left">
+          <view class="info-avatar">
+            <text class="info-avatar-txt">{{targetUser.avatarText}}</text>
+          </view>
+          <view class="info-text">
+            <text class="info-name">{{targetUser.nickname}}</text>
+            <text class="info-major">{{targetUser.major}}</text>
+          </view>
+        </view>
+        <view class="info-trust">
+          <text class="info-trust-label">Trust</text>
+          <text class="info-trust-score">{{targetUser.trustScore}}</text>
+        </view>
+      </view>
+
+      <!-- 评价维度 -->
+      <view class="sec">
+        <text class="sec-label">评价维度</text>
+        <view class="card dims-card">
+          <view class="dim-row" wx:for="{{dims}}" wx:key="key">
+            <text class="dim-name">{{item.name}}</text>
+            <view class="dim-stars">
+              <view
+                class="dim-star {{val <= item.score ? 'on' : 'off'}}"
+                wx:for="{{[1,2,3,4,5]}}" wx:for-item="val" wx:for-index="idx" wx:key="*this"
+                data-dim="{{item.key}}"
+                data-val="{{val}}"
+                bindtap="handleStarTap"
+              >
+                <text>★</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 评价标签 -->
+      <view class="sec">
+        <text class="sec-label">评价标签</text>
+        <view class="tag-group">
+          <view
+            class="tag tag-positive {{_tagStates[item] ? 'on' : 'off'}}"
+            wx:for="{{positiveTags}}" wx:for-index="idx" wx:key="idx"
+            data-tag="{{item}}"
+            data-type="positive"
+            bindtap="handleTagTap"
+            hover-class="tag-hover"
+          ><text>{{item}}</text></view>
+        </view>
+        <view class="tag-group">
+          <view
+            class="tag tag-negative {{_tagStates[item] ? 'on' : 'off'}}"
+            wx:for="{{negativeTags}}" wx:for-index="idx" wx:key="idx"
+            data-tag="{{item}}"
+            data-type="negative"
+            bindtap="handleTagTap"
+            hover-class="tag-hover"
+          ><text>{{item}}</text></view>
+        </view>
+      </view>
+
+      <!-- 文字评价 -->
+      <view class="card comment-card">
+        <textarea
+          class="comment-input"
+          placeholder="补充一些具体的评价...（选填）"
+          placeholder-class="comment-ph"
+          maxlength="{{maxCommentLength}}"
+          value="{{comment}}"
+          bindinput="onCommentInput"
+        />
+        <text class="comment-count">{{commentLength}}/{{maxCommentLength}}</text>
+      </view>
+
+      <!-- 技能点赞 -->
+      <view class="sec">
+        <text class="sec-label">技能点赞</text>
+        <view class="skill-list">
+          <view
+            class="skill-item {{_skillStates[item.name] ? 'on' : 'off'}}"
+            wx:for="{{skills}}" wx:for-index="idx" wx:key="idx"
+            data-skill="{{item.name}}"
+            bindtap="handleEndorseTap"
+          >
+            <text class="skill-name">{{item.name}}</text>
+            <text class="skill-thumb">👍</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 底部提交按钮 -->
+    <view class="bottom-bar">
+      <button
+        class="btn-submit {{(canSubmit && !submitted) ? '' : 'disabled'}}"
+        disabled="{{!canSubmit || submitting || submitted}}"
+        loading="{{submitting}}"
+        bindtap="handleSubmit"
+      >{{submitted ? '已提交' : '提交评价'}}</button>
+    </view>
+  </view>
+</view>

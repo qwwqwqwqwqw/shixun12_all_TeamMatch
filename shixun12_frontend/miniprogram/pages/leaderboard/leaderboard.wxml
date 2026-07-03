@@ -1,0 +1,114 @@
+<!--pages/leaderboard/leaderboard.wxml-->
+<view class="page-bg">
+  <!-- 加载态 -->
+  <view class="loading-box" wx:if="{{loading}}">
+    <view class="ld-spin"></view>
+    <text class="load-txt">加载中...</text>
+  </view>
+
+  <!-- 内容区 -->
+  <block wx:else>
+    <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}" bindscrolltolower="onScrollToLower" lower-threshold="200">
+      <!-- Hero 区域 -->
+      <view class="hero">
+        <text class="eyebrow">TeamMatch · 技术榜</text>
+        <text class="title">{{sortType === 'totalStars' ? 'Stars 星标榜' : sortType === 'totalRepos' ? '开源仓库榜' : sortType === 'totalCommits' ? '代码贡献榜' : '技术排行榜'}}</text>
+        <text class="desc">看看身边的开发者都在用什么技术</text>
+      </view>
+
+      <!-- 我的排名：吸顶可见，不在列表中也显示 -->
+      <view class="my-rank-card {{myRank && myRank.rank <= 3 ? 'my-rank-top' : ''}}" wx:if="{{myRank}}">
+        <view class="rank-col">
+          <text class="rank-medal" wx:if="{{myRank.rank === 1}}">🥇</text>
+          <text class="rank-medal" wx:elif="{{myRank.rank === 2}}">🥈</text>
+          <text class="rank-medal" wx:elif="{{myRank.rank === 3}}">🥉</text>
+          <text class="rank-num" wx:else>{{myRank.rank}}</text>
+        </view>
+        <view class="info-col">
+          <text class="user-name">{{myRank.username}} <text class="my-tag">我</text></text>
+          <text wx:if="{{myRank.source === 'gitee'}}" class="github-name">[Gitee] {{myRank.giteeUsername || myRank.githubUsername}}</text>
+          <text wx:else class="github-name">[GitHub] {{myRank.githubUsername || myRank.giteeUsername}}</text>
+        </view>
+        <view class="data-col">
+          <view class="skill-row">
+            <text class="skill-chip" wx:for="{{myRank.skills}}" wx:key="*this" wx:for-item="sk">{{sk}}</text>
+          </view>
+          <view class="stat-row">
+            <block wx:if="{{sortType === 'totalStars'}}"><text class="stat-score">⭐ {{myRank.totalStars}} Stars</text></block>
+            <block wx:elif="{{sortType === 'totalRepos'}}"><text class="stat-score">📦 {{myRank.repoCount}} 仓库</text></block>
+            <block wx:elif="{{sortType === 'totalCommits'}}"><text class="stat-score">💻 {{myRank.totalCommits}} 提交</text></block>
+            <block wx:else><text class="stat-item">📦 {{myRank.repoCount}} 仓库</text><text class="stat-score">{{myRank.score}} 分</text></block>
+          </view>
+        </view>
+      </view>
+      <view class="my-rank-empty" wx:else>
+        <text class="my-rank-empty-text">尚未上榜，绑定 GitHub / Gitee 后即可参与排名</text>
+      </view>
+
+      <!-- 榜单列表 -->
+      <view class="board-list">
+        <view class="board-item {{item.rank <= 3 ? 'top-' + item.rank : ''}}"
+              wx:for="{{leaderboardData}}"
+              wx:if="{{index < displayCount}}"
+              wx:key="rank"
+              data-user-id="{{item.userId}}"
+              bindtap="viewProfile">
+          <!-- 排名区 -->
+          <view class="rank-col">
+            <text class="rank-medal" wx:if="{{item.rank === 1}}">🥇</text>
+            <text class="rank-medal" wx:elif="{{item.rank === 2}}">🥈</text>
+            <text class="rank-medal" wx:elif="{{item.rank === 3}}">🥉</text>
+            <text class="rank-num" wx:else>{{item.rank}}</text>
+          </view>
+
+          <!-- 用户信息 -->
+          <view class="info-col">
+            <text class="user-name">{{item.username}}</text>
+            <text wx:if="{{item.source === 'gitee'}}" class="github-name">[Gitee] {{item.giteeUsername || item.githubUsername}}</text>
+            <text wx:else class="github-name">[GitHub] {{item.githubUsername || item.giteeUsername}}</text>
+          </view>
+
+          <!-- 数据区 -->
+          <view class="data-col">
+            <view class="skill-row">
+              <text class="skill-chip" wx:for="{{item.skills}}" wx:key="*this" wx:for-item="sk">{{sk}}</text>
+            </view>
+            <view class="stat-row">
+              <!-- Stars 榜 -->
+              <block wx:if="{{sortType === 'totalStars'}}">
+                <text class="stat-score">⭐ {{item.totalStars}} Stars</text>
+              </block>
+              <!-- 仓库榜 -->
+              <block wx:elif="{{sortType === 'totalRepos'}}">
+                <text class="stat-score">📦 {{item.repoCount}} 仓库</text>
+              </block>
+              <!-- 贡献榜 -->
+              <block wx:elif="{{sortType === 'totalCommits'}}">
+                <text class="stat-score">💻 {{item.totalCommits}} 提交</text>
+              </block>
+              <!-- 综合/默认 -->
+              <block wx:else>
+                <text class="stat-item">📦 {{item.repoCount}} 仓库</text>
+                <text class="stat-score">{{item.score}} 分</text>
+              </block>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 加载更多 / 没有更多 -->
+      <view class="load-more" wx:if="{{loadingMore}}">
+        <view class="ld-spin ld-spin-small"></view>
+        <text class="load-txt">加载更多...</text>
+      </view>
+      <view class="load-more" wx:if="{{!hasMore}}">
+        <text class="load-txt">— 已显示全部排名 —</text>
+      </view>
+
+      <!-- 底部操作区 -->
+      <view class="bottom-actions">
+        <button class="btn-primary" wx:if="{{!hasGithub}}" bindtap="goGitHubBind">绑定 GitHub / Gitee</button>
+      </view>
+    </scroll-view>
+  </block>
+</view>

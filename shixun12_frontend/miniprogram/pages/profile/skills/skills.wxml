@@ -1,0 +1,54 @@
+<!--pages/profile/skills/skills.wxml-->
+<view class="page">
+  <!-- 固定头部区 -->
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TeamMatch · Profile</text>
+      <text class="hd-title">我的技能标签</text>
+      <text class="hd-desc">选择你擅长的技能，让队友更快找到你。已选 {{selectedIds.length}} 项</text>
+    </view>
+  </view>
+
+  <!-- 内容可滑动区 -->
+  <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 已选区域 -->
+    <view class="card" wx:if="{{selectedIds.length > 0}}">
+      <text class="card-title">已选择的技能</text>
+      <view class="selected-tags">
+        <view class="selected-tag" wx:for="{{selectedIds}}" wx:key="*this" wx:for-item="skillId">
+          <text class="tag-name">{{allTags[skillId - 1].name}}</text>
+          <text class="tag-remove" data-id="{{skillId}}" bindtap="toggleSkill">✕</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 按分类展示可选标签 -->
+    <view class="card" wx:for="{{['language','framework','tool','soft_skill']}}" wx:key="*this" wx:for-item="category">
+      <text class="card-title">{{category === 'language' ? '编程语言' : category === 'framework' ? '框架/库' : category === 'tool' ? '工具/数据库' : '软技能'}}</text>
+      <view class="tag-grid">
+        <view class="skill-tag {{selectedIds.indexOf(item.id) > -1 ? 'active' : ''}}"
+              wx:for="{{allTags}}"
+              wx:key="id"
+              wx:for-item="item"
+              wx:if="{{item.category === category}}"
+              data-id="{{item.id}}"
+              bindtap="toggleSkill">
+          <text>{{item.name}}</text>
+          <text class="tag-check" wx:if="{{selectedIds.indexOf(item.id) > -1}}">✓</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 错误信息 -->
+    <view class="err" wx:if="{{errorMsg}}">
+      <text class="err-txt">{{errorMsg}}</text>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view class="btn-wrap">
+      <button class="submit-btn" bindtap="saveSkills" loading="{{saving}}" disabled="{{saving}}">
+        保存技能标签
+      </button>
+    </view>
+  </scroll-view>
+</view>

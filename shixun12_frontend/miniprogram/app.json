@@ -1,0 +1,69 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/agreement/user-agreement/user-agreement",
+    "pages/agreement/privacy-policy/privacy-policy",
+    "pages/index/index",
+    "pages/function-hub/function-hub",
+    "pages/profile/profile",
+    "pages/team-center/index",
+    "pages/credit-center/index",
+    "pages/profile-claim/profile-claim",
+    "pages/email-verify/email-verify",
+    "pages/exit-vote-detail/exit-vote-detail",
+    "pages/profile/skills/skills",
+    "pages/projects/create/create",
+    "pages/projects/detail/detail",
+    "pages/projects/list/list",
+    "pages/profile/edit/edit",
+    "pages/team-requests/team-requests",
+    "pages/profile-auth/profile-auth",
+    "pages/exit-project/exit-project",
+    "pages/project-members/project-members",
+    "pages/evaluation-list/evaluation-list",
+    "pages/member-match/member-match",
+    "pages/evaluation/evaluation",
+    "pages/credit-history/credit-history",
+    "pages/report/report",
+    "pages/appeal/appeal",
+    "pages/my-reports/my-reports",
+    "pages/my-appeals/my-appeals",
+    "pages/leaderboard/leaderboard",
+    "pages/vote-management/vote-management",
+    "pages/initiate-vote/initiate-vote",
+    "pages/my-center/my-center",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "TeamMatch",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "color": "#424753",
+    "selectedColor": "#0058BB",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/team-center/index",
+        "text": "组队"
+      },
+      {
+        "pagePath": "pages/credit-center/index",
+        "text": "动态"
+      },
+      {
+        "pagePath": "pages/my-center/my-center",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,120 @@
+<view class="page">
+  <!-- 吸顶固定头部区 -->
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TeamMatch</text>
+      <text class="hd-title">申诉</text>
+      <text class="hd-desc">对评价或处罚结果提出申诉，我们将在24小时内人工审核并回复。</text>
+    </view>
+
+    <!-- 申诉类型选择 -->
+    <view class="type-row">
+      <view class="type-card {{appealType === 'evaluation' ? 'active' : ''}}" data-type="evaluation" bindtap="switchType">
+        <view class="type-icon-wrap {{appealType === 'evaluation' ? 'icon-active' : 'icon-inactive'}}">
+          <text class="type-icon">★</text>
+        </view>
+        <text class="type-label {{appealType === 'evaluation' ? 'label-active' : 'label-inactive'}}">评价申诉</text>
+      </view>
+      <view class="type-card {{appealType === 'penalty' ? 'active' : ''}}" data-type="penalty" bindtap="switchType">
+        <view class="type-icon-wrap {{appealType === 'penalty' ? 'icon-active' : 'icon-inactive'}}">
+          <text class="type-icon">⚖</text>
+        </view>
+        <text class="type-label {{appealType === 'penalty' ? 'label-active' : 'label-inactive'}}">处罚申诉</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 加载态 -->
+    <view class="state-wrap" wx:if="{{loading}}">
+      <view class="ld-spin"></view>
+      <text class="ld-text">加载中...</text>
+    </view>
+
+    <!-- 错误态 -->
+    <view class="state-wrap" wx:elif="{{error}}">
+      <text class="err-text">{{error}}</text>
+      <button class="retry-btn" bindtap="loadTargets">重试</button>
+    </view>
+
+    <!-- 内容区 -->
+    <block wx:else>
+      <!-- 被申诉目标 -->
+      <view class="sec">
+        <text class="sec-label">被申诉目标</text>
+
+        <!-- 可滚动目标列表 -->
+        <scroll-view class="target-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+          <view wx:for="{{targets}}" wx:key="id"
+            class="target-card {{selectedTargetId === item.id ? 'selected' : ''}}"
+            data-id="{{item.id}}"
+            bindtap="selectTarget"
+          >
+            <view class="target-left">
+              <view class="target-thumb">{{appealType === 'evaluation' ? '📋' : '⚠'}}</view>
+              <view class="target-info">
+                <text class="target-name">{{item.displayName}}</text>
+                <text class="target-time">{{item.time}}</text>
+                <text class="target-desc">{{item.desc}}</text>
+                <text class="target-meta">{{item.meta}}</text>
+              </view>
+            </view>
+            <view class="target-check" wx:if="{{selectedTargetId === item.id}}">✓</view>
+          </view>
+          <view class="target-empty" wx:if="{{targets.length === 0}}">
+            <text>暂无可申诉项目</text>
+          </view>
+        </scroll-view>
+      </view>
+
+      <!-- 申诉理由 -->
+      <view class="sec">
+        <text class="sec-label">申诉理由</text>
+        <view class="reason-box">
+          <textarea
+            class="reason-input"
+            placeholder="请详细说明您的申诉理由，包括事情经过、存在的不合理评价点等..."
+            placeholder-class="reason-ph"
+            maxlength="{{maxReasonLength}}"
+            value="{{reason}}"
+            bindinput="onReasonInput"
+          />
+          <text class="reason-count">{{reasonLength}}/{{maxReasonLength}}</text>
+        </view>
+      </view>
+
+      <!-- 证据上传 -->
+      <view class="sec">
+        <text class="sec-label">证据上传（选填）</text>
+        <view class="upload-row">
+          <view class="upload-box" wx:for="{{3}}" wx:for-index="upIdx" wx:key="upIdx">
+            <view
+              class="upload-area {{upIdx < images.length ? 'filled' : ''}}"
+              wx:if="{{upIdx < images.length}}"
+            >
+              <image class="upload-img" src="{{images[upIdx].tempPath || images[upIdx]}}" mode="aspectFill" />
+              <view class="upload-del" data-index="{{upIdx}}" bindtap="deleteImage">
+                <text class="upload-del-icon">✕</text>
+              </view>
+            </view>
+            <view class="upload-area empty" wx:else bindtap="chooseImage">
+              <text class="upload-add-icon" wx:if="{{upIdx === 0}}">📎</text>
+              <text class="upload-hint" wx:if="{{upIdx === 0}}">最多3张</text>
+            </view>
+          </view>
+        </view>
+        <text class="upload-note">支持JPG、PNG格式，单张不超过5MB</text>
+      </view>
+    </block>
+
+    <!-- 底部提交按钮 -->
+    <view class="bottom-area">
+      <button
+        class="btn-submit {{canSubmit && !submitting ? '' : 'disabled'}}"
+        disabled="{{!canSubmit || submitting}}"
+        loading="{{submitting}}"
+        bindtap="handleSubmit"
+      >提交申诉</button>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,29 @@
+page{background:#F9F9FF;color:#191C22}
+.page{padding:16px}
+.hero{margin-bottom:18px}
+.hero-title{display:block;font-size:18px;font-weight:700;color:#191C22}
+.hero-sub{display:block;font-size:13px;color:#424753;margin-top:2px}
+
+.state-wrap{text-align:center;padding:48px 0}
+.state-text{display:block;font-size:15px;color:#727784;margin-bottom:8px}
+.state-text.error{color:#DC2626}
+.state-desc{display:block;font-size:13px;color:#C2C6D5;margin-top:4px}
+.retry-btn{display:inline-block;padding:8px 20px;background:#0058BB;color:#fff;border-radius:8px;font-size:14px;margin-top:12px}
+
+.vote-item{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.03);padding:16px;margin-bottom:12px}
+.vote-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.vote-item-left{flex:1;min-width:0}
+.vote-target-id{display:block;font-size:15px;font-weight:600;color:#191C22}
+.vote-tags{display:flex;gap:6px;margin-top:6px}
+.vtag{padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600}
+.vtag-status{background:#EDEEF4;color:#727784}
+.vtag-active{background:#FEF3C7;color:#D97706}
+.vtag-penalty{background:rgba(0,88,187,0.10);color:#0058BB}
+.vtag-red{background:rgba(239,68,68,0.10);color:#DC2626}
+.card-arrow{font-size:22px;color:#C2C6D5;flex-shrink:0}
+
+.vote-item-bottom{display:flex;gap:16px;margin-bottom:6px}
+.vote-meta{font-size:13px;color:#424753}
+
+.vote-item-result{margin-top:8px;padding-top:8px;border-top:1px solid #EDEEF4}
+.result-text{font-size:13px;font-weight:600;color:#0058BB}

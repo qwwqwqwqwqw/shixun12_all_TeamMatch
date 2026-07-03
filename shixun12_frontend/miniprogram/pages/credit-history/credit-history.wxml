@@ -1,0 +1,85 @@
+<view class="page">
+  <!-- 吸顶固定头部区 -->
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TEAMMATCH</text>
+      <text class="hd-title">信誉分变化</text>
+      <text class="hd-desc">记录每一次信誉变化</text>
+    </view>
+  </view>
+
+  <!-- 加载态 -->
+  <view class="state-wrap" wx:if="{{loading}}">
+    <view class="loading-state">
+      <view class="loading-icon"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+
+  <!-- 错误态 -->
+  <view class="state-wrap" wx:elif="{{error}}">
+    <view class="error-state">
+      <text class="error-text">{{error}}</text>
+      <button class="retry-btn" bindtap="loadData">重试</button>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}" wx:else>
+    <!-- 当前信誉分总览卡片 -->
+    <view class="score-card">
+      <view class="score-value-row">
+        <text class="score-value">{{currentScore}}</text>
+        <view class="live-badge">
+          <text class="live-text">LIVE</text>
+        </view>
+      </view>
+      <text class="score-label">当前信誉分</text>
+      <view class="init-pill">
+        <text class="init-text">初始分 {{initialScore}}</text>
+      </view>
+    </view>
+
+    <!-- 变化记录标题 -->
+    <view class="record-header">
+      <text class="record-header-title">变化记录</text>
+    </view>
+
+    <!-- 记录列表 -->
+    <view class="record-list">
+      <view
+        class="record-card"
+        wx:for="{{records}}" wx:for-index="idx" wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="handleRecordTap"
+      >
+        <!-- 左侧图标 -->
+        <view class="icon-wrap icon-{{item.changeType}}">
+          <text class="icon-symbol">{{item.changeValue > 0 ? '+' : '-'}}</text>
+        </view>
+        <!-- 中间文本 -->
+        <view class="record-info">
+          <view class="record-desc-row">
+            <text class="record-desc">{{item.desc}}</text>
+            <view class="suspend-badge" wx:if="{{!item.effective}}">
+              <text class="suspend-text">已挂起</text>
+            </view>
+          </view>
+          <text class="record-source">{{item.sourceDesc}}</text>
+          <text class="record-time">{{item.time}}</text>
+        </view>
+        <!-- 右侧变化数值 -->
+        <view class="value-area">
+          <text class="change-value {{item.changeValue > 0 ? 'positive' : 'negative'}} {{item.effective ? '' : 'suspended'}}">
+            {{item.changeValue > 0 ? '+' : ''}}{{item.changeValue}}
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-wrap" wx:if="{{records.length === 0}}">
+      <text class="empty-text">暂无信誉变化记录</text>
+    </view>
+  </scroll-view>
+</view>

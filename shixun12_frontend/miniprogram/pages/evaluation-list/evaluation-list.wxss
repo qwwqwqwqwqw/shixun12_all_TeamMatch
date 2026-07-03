@@ -1,0 +1,21 @@
+page{background:#F9F9FF;color:#191C22}
+.page{padding:16px}
+.hero{margin-bottom:18px}
+.hero-title{display:block;font-size:18px;font-weight:700;color:#191C22}
+.hero-sub{display:block;font-size:13px;color:#424753;margin-top:4px}
+
+.state-wrap{text-align:center;padding:64px 0}
+.state-text{display:block;font-size:15px;color:#727784;margin-bottom:4px}
+.state-text.error{color:#DC2626}
+.state-desc{display:block;font-size:13px;color:#C2C6D5;margin-top:4px}
+.retry-btn{display:inline-block;margin-top:12px;padding:8px 20px;background:#0058BB;color:#fff;border-radius:8px;font-size:14px}
+
+.member-card{display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.03);padding:16px;margin-bottom:12px}
+.member-card.evaluated{opacity:0.5}
+.member-avatar{width:44px;height:44px;border-radius:50%;background:#D2E4FF;color:#0058BB;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
+.member-info{flex:1;min-width:0}
+.member-name{display:block;font-size:16px;font-weight:600;color:#191C22}
+.member-major{display:block;font-size:13px;color:#424753;margin-top:2px}
+.member-credit{display:inline-block;margin-top:4px;font-size:12px;color:#0058BB;background:rgba(0,88,187,0.08);padding:2px 8px;border-radius:4px}
+.card-arrow{font-size:22px;color:#C2C6D5;flex-shrink:0}
+.eval-tag{font-size:12px;color:#059669;background:rgba(16,185,129,0.10);padding:4px 10px;border-radius:6px;flex-shrink:0}

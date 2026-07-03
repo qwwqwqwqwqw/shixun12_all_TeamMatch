@@ -1,0 +1,139 @@
+<view class="request-page" wx:if="{{isAuthenticated}}">
+  <!-- 固定头部区 -->
+  <view class="page-sticky">
+    <view class="hero">
+      <view class="hero-copy">
+        <text class="eyebrow">TeamMatch</text>
+        <text class="page-title">组队请求</text>
+        <text class="page-subtitle">集中处理收到与发出的组队申请</text>
+      </view>
+    </view>
+
+    <view class="tabs" aria-role="tablist">
+      <view class="tab {{activeTab === 'received' ? 'tab--active' : ''}}" aria-role="tab" data-tab="received" bindtap="switchTab">
+        <text>我收到的</text>
+      </view>
+      <view class="tab {{activeTab === 'sent' ? 'tab--active' : ''}}" aria-role="tab" data-tab="sent" bindtap="switchTab">
+        <text>我发出的</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载态：第二张原型 -->
+  <view class="state-wrap" wx:if="{{loading}}">
+    <view class="loading-state">
+      <view class="loading-icon"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+
+  <!-- 错误态 -->
+  <view class="state-wrap" wx:elif="{{error}}">
+    <view class="error-state">
+      <text class="error-text">{{error}}</text>
+      <button class="retry-btn" bindtap="loadRequests">重试</button>
+    </view>
+  </view>
+
+  <!-- 空状态：第三张原型 -->
+  <view class="state-wrap" wx:elif="{{requests.length === 0}}">
+    <view class="empty-state">
+      <view class="empty-box-icon">
+        <view class="empty-box"></view>
+        <view class="empty-lid"></view>
+      </view>
+      <text class="empty-text">{{activeTab === 'received' ? '暂无收到的请求' : '暂无发出的请求'}}</text>
+    </view>
+  </view>
+
+  <!-- 正常列表 -->
+  <scroll-view class="request-scroll" scroll-y enhanced show-scrollbar="{{false}}" wx:else>
+    <view
+      class="request-card status-{{item.class}}"
+      wx:for="{{requests}}"
+      wx:key="requestId"
+    >
+      <!-- 卡片头部：项目名 + 类型 + 状态标签 -->
+      <view class="card-header">
+        <view class="card-header-left">
+          <text class="project-name">{{item.projectName}}</text>
+          <text class="request-type">{{item.isReceived ? '收到' : '发出'}} {{item.requestTypeLabel}}</text>
+        </view>
+        <view class="status-pill status-{{item.class}}">{{item.label}}</view>
+      </view>
+
+      <!-- 成员行：头像 + 昵称 + 描述 -->
+      <view class="member-row">
+        <image wx:if="{{item.avatarUrl}}" class="avatar" src="{{item.avatarUrl}}" mode="aspectFill" />
+        <view wx:else class="avatar">{{item.avatarText}}</view>
+        <view class="member-info">
+          <text class="member-name">{{item.counterpartLabel}} {{item.counterpartNickname}}</text>
+          <text class="member-tag" wx:if="{{item.major}}">{{item.major}}</text>
+          <text class="member-credit" wx:if="{{item.creditScore > 0}}">信誉 {{item.creditScore}}</text>
+        </view>
+      </view>
+
+      <!-- 留言框（数据中存在留言时显示） -->
+      <view class="message-box" wx:if="{{item.message}}">
+        <text class="message-text">{{item.message}}</text>
+      </view>
+
+      <!-- 信息网格：角色 + 时间 -->
+      <view class="meta-grid">
+        <view class="meta-cell">
+          <text class="meta-label">专业</text>
+          <text class="meta-value">{{item.major || '--'}}</text>
+        </view>
+        <view class="meta-cell">
+          <text class="meta-label">{{item.requestType === 'invite' ? '邀请时间' : '申请时间'}}</text>
+          <text class="meta-value">{{item.createdAt}}</text>
+        </view>
+      </view>
+
+      <!-- 操作区 / 提示区 -->
+      <view class="card-actions">
+        <!-- 正在操作该请求时，显示 loading 文案 -->
+        <block wx:if="{{operatingId === item.requestId}}">
+          <text class="operating-text">处理中...</text>
+        </block>
+
+        <!-- 否则按原有逻辑展示按钮，但增加 disabled 属性 -->
+        <block wx:elif="{{item.status === 'pending'}}">
+          <!-- 收到的邀请：接受 + 拒绝 -->
+          <block wx:if="{{item.isReceived && item.requestType === 'invite'}}">
+            <button class="action-btn btn-reject" bindtap="handleAction" data-id="{{item.requestId}}" data-action="reject" disabled="{{operatingId !== null}}">婉言拒绝</button>
+            <button class="action-btn btn-accept" bindtap="handleAction" data-id="{{item.requestId}}" data-action="accept" disabled="{{operatingId !== null}}">接受邀请</button>
+          </block>
+
+          <!-- 收到的申请：接受 + 拒绝（项目发布者收到别人的申请） -->
+          <block wx:elif="{{item.isReceived && item.requestType === 'apply'}}">
+            <button class="action-btn btn-reject" bindtap="handleAction" data-id="{{item.requestId}}" data-action="reject" disabled="{{operatingId !== null}}">拒绝</button>
+            <button class="action-btn btn-accept" bindtap="handleAction" data-id="{{item.requestId}}" data-action="accept" disabled="{{operatingId !== null}}">同意申请</button>
+          </block>
+
+          <!-- 发出的邀请：取消 -->
+          <block wx:elif="{{!item.isReceived && item.requestType === 'invite'}}">
+            <button class="action-btn btn-cancel" bindtap="handleAction" data-id="{{item.requestId}}" data-action="cancel" disabled="{{operatingId !== null}}">取消</button>
+          </block>
+
+          <!-- 发出的申请：取消 -->
+          <block wx:elif="{{!item.isReceived && item.requestType === 'apply'}}">
+            <button class="action-btn btn-cancel" bindtap="handleAction" data-id="{{item.requestId}}" data-action="cancel" disabled="{{operatingId !== null}}">取消</button>
+          </block>
+
+          <!-- 未知组合 fallback -->
+          <block wx:else>
+            <text class="result-hint">请等待对方处理</text>
+          </block>
+        </block>
+
+        <!-- 非 pending 状态：仅展示提示 -->
+        <block wx:else>
+          <view class="result-hint">
+            <text>{{item.hint}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+</view>

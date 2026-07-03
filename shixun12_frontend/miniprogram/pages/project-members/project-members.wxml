@@ -1,0 +1,106 @@
+<view class="page">
+  <!-- 固定头部区 -->
+  <view class="page-sticky">
+    <!-- 头部 -->
+    <view class="page-header">
+      <view class="page-header-top">
+        <view class="page-header-top-left">
+          <text class="page-header-sub">TeamMatch</text>
+          <text class="page-header-title">项目成员</text>
+          <text class="page-header-desc">管理你的团队</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 团队名称徽章 -->
+    <view class="team-badge">
+      <text class="team-badge-name">{{projectTitle}}</text>
+      <image class="team-badge-arrow" src="/assets/CodeBuddyAssets/47_53/29.svg" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- ============ 列表区域 ============ -->
+
+  <!-- 加载态 -->
+  <view class="state-wrap" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="state-text">加载中...</text>
+  </view>
+
+  <!-- 错误态 -->
+  <view class="state-wrap" wx:elif="{{error}}">
+    <text class="state-text error-text">{{error}}</text>
+    <button class="retry-btn" bindtap="loadMembers" size="mini">重试</button>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="state-wrap" wx:elif="{{members.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="state-text">暂无成员</text>
+  </view>
+
+  <!-- 正常列表 -->
+  <scroll-view class="member-scroll" scroll-y enhanced show-scrollbar="{{false}}" wx:else>
+    <view class="member-list">
+      <view
+        class="member-card {{item.status === 'exited' ? 'exited' : ''}}"
+        wx:for="{{members}}"
+        wx:key="id"
+        bindtap="viewMember"
+        data-user-id="{{item.userId}}"
+        hover-class="member-card--hover"
+        hover-stay-time="200"
+      >
+        <!-- 头像 -->
+        <view class="member-avatar-wrap {{item.role === 'leader' ? 'leader' : (item.status === 'active' ? 'active' : 'exited')}}" wx:if="{{!item.avatarUrl}}">
+          <text class="member-avatar-text">{{item.nickname ? item.nickname.slice(0, 1) : '?'}}</text>
+        </view>
+        <image wx:else class="member-avatar-img" src="{{item.avatarUrl}}" mode="aspectFill" />
+
+        <!-- 信息区 -->
+        <view class="member-info">
+          <text class="member-name">{{item.nickname}}</text>
+          <text class="member-major" wx:if="{{item.major}}">{{item.major}}</text>
+          <text class="member-bio" wx:if="{{item.bio}}">{{item.bio}}</text>
+          <text class="exit-reason" wx:if="{{item.status === 'exited'}}">
+            {{item.exitMode === 'self_exit' ? '主动退出' : '被投票移除'}} · {{item.exitDate}}
+          </text>
+        </view>
+
+        <!-- 右侧区：标签 + 信誉分 -->
+        <view class="member-right">
+          <!-- 标签行 -->
+          <view class="tag-row">
+            <text class="tag tag-leader" wx:if="{{item.role === 'leader'}}">队长</text>
+            <text class="tag tag-{{item.status}}">{{item.status === 'active' ? '活跃' : '已退出'}}</text>
+          </view>
+
+          <!-- 信誉分 -->
+          <view class="trust-box {{item.status === 'active' ? 'active' : 'exited'}}">
+            <text class="trust-label">信誉分</text>
+            <text class="trust-score">{{item.creditScore}}</text>
+          </view>
+        </view>
+
+        <!-- 移除投票入口：仅在 hover 整张卡片时浮现 -->
+        <view
+          wx:if="{{isLeader && currentUserId !== item.userId && item.role !== 'leader' && item.status === 'active'}}"
+          class="remove-vote-entry"
+          catchtap="handleMemberAction"
+          data-id="{{item.id}}"
+          data-user-id="{{item.userId}}"
+          data-nickname="{{item.nickname}}"
+          data-credit-score="{{item.creditScore}}"
+        >
+          <text class="remove-vote-icon">⋮</text>
+          <text class="remove-vote-label">发起投票移除</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部邀请成员按钮（仅队长可见） -->
+  <view class="invite-bar" wx:if="{{isLeader}}">
+    <button class="invite-btn {{!canInvite ? 'invite-btn-disabled' : ''}}" bindtap="goInviteMember" disabled="{{!canInvite}}">+ 邀请成员</button>
+  </view>
+</view>

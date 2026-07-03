@@ -1,0 +1,4 @@
+.codebuddy/
+.figma/
+*.html.tmp
+node_modules/

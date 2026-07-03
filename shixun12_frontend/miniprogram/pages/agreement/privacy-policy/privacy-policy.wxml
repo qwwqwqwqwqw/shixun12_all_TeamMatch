@@ -1,0 +1,50 @@
+<!--pages/agreement/privacy-policy/privacy-policy.wxml-->
+<view class="page">
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TeamMatch</text>
+      <text class="hd-title">隐私政策</text>
+    </view>
+  </view>
+
+  <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="card">
+      <text class="section-title">一、开发者处理的信息</text>
+      <text class="section-text">根据法律规定，开发者仅处理实现小程序功能所必要的信息：</text>
+      <text class="section-text">1.1 读取你的剪切板，用于便捷填写用户信息和项目信息。</text>
+      <text class="section-text">1.2 收集你选中的照片或视频信息，用于设置头像和项目展示。</text>
+
+      <text class="section-title">二、未成年人保护</text>
+      <text class="section-text">2.1 若你是14周岁以下的未成年人，需要你和监护人共同仔细阅读本指引。</text>
+      <text class="section-text">2.2 你应在征得监护人明示同意后，继续使用小程序服务。</text>
+      <text class="section-text">2.3 开发者将依法处理经监护人同意而收集的未成年人信息，并在本指引"你的权益"部分保障未成年人的各项权利。</text>
+
+      <text class="section-title">三、你的权益</text>
+      <text class="section-text">3.1 关于读取剪切板、收集照片或视频信息，你可通过以下路径管理：小程序主页右上角"…"—"设置"—"小程序已获取的信息"—点击特定信息—点击"通知开发者删除"。开发者承诺收到通知后将删除信息。</text>
+      <text class="section-text">3.2 法律法规另有规定的，开发者将停止除存储和必要安全保护措施之外的处理。</text>
+      <text class="section-text">3.3 你可通过下方联系方式，行使查阅、复制、更正、删除个人信息等法定权利。</text>
+      <text class="section-text">3.4 你可申请注销账号，开发者将在十五个工作日内完成核查和处理。</text>
+
+      <text class="section-title">四、信息的存储与使用</text>
+      <text class="section-text">4.1 除法律法规另有规定外，开发者对你的信息的保存期限为实现处理目的所必要的最短时间。</text>
+      <text class="section-text">4.2 开发者将在本指引所明示的用途内使用收集的信息。</text>
+      <text class="section-text">4.3 如需超出本指引目的使用你的信息，开发者将提前以公告方式告知并征得你的明示同意。</text>
+
+      <text class="section-title">五、信息对外提供</text>
+      <text class="section-text">5.1 开发者承诺不会主动共享或转让你的信息至任何第三方。</text>
+      <text class="section-text">5.2 如确需共享或转让，开发者将直接征得或确认第三方征得你的单独同意。</text>
+      <text class="section-text">5.3 开发者承诺不会对外公开披露你的信息。如必须公开披露，将提前告知目的、类型及可能涉及的信息，并征得你的单独同意。</text>
+
+      <text class="section-title">六、联系方式</text>
+      <text class="section-text">如你对本指引内容有任何疑问、意见或建议，或有未成年人个人信息保护相关问题，可通过以下方式联系：</text>
+      <text class="section-text">• 邮箱：23251095@bjtu.edu.cn</text>
+      <text class="section-text">你也可通过微信官方渠道进行投诉。</text>
+
+      <text class="section-footer">更新日期：2026-06-17</text>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar">
+    <button class="confirm-btn" bindtap="goBack">已知晓</button>
+  </view>
+</view>

@@ -1,0 +1,56 @@
+<view class="profile-page">
+  <!-- 加载态 -->
+  <view class="profile-card" wx:if="{{loading}}">
+    <text class="title">加载中...</text>
+  </view>
+
+  <!-- 用户详情 -->
+  <view class="profile-card" wx:elif="{{user}}">
+    <!-- 头像 -->
+    <image wx:if="{{user.avatarUrl}}" class="avatar-placeholder" src="{{user.avatarUrl}}" mode="aspectFill" />
+    <view wx:else class="avatar-placeholder">{{user.nickname ? user.nickname.slice(0, 1) : '?'}}</view>
+
+    <!-- 昵称 -->
+    <text class="title">{{user.nickname}}</text>
+    <text class="desc">{{user.school}}{{user.major ? ' · ' + user.major : ''}}</text>
+
+    <!-- 年级 -->
+    <view class="info-row" wx:if="{{user.grade}}">
+      <text class="label">年级</text>
+      <text class="value">{{user.grade}}</text>
+    </view>
+
+    <!-- 个人简介 -->
+    <view class="info-row" wx:if="{{user.bio}}">
+      <text class="label">简介</text>
+      <text class="value">{{user.bio}}</text>
+    </view>
+
+    <!-- 信誉分 -->
+    <view class="info-row">
+      <text class="label">信誉分</text>
+      <text class="value">{{user.creditScore}}</text>
+    </view>
+
+    <!-- GitHub -->
+    <view class="info-row" wx:if="{{user.githubUsername}}">
+      <text class="label">GitHub</text>
+      <text class="value">@{{user.githubUsername}}</text>
+    </view>
+
+    <!-- 邮箱 -->
+    <view class="info-row" wx:if="{{user.email}}">
+      <text class="label">邮箱</text>
+      <text class="value">{{user.email}}</text>
+    </view>
+  </view>
+
+  <!-- 用户未入驻 -->
+  <view class="profile-card" wx:if="{{!loading && notFound}}">
+    <view class="avatar-placeholder" style="margin-bottom:24rpx;">
+      <text style="font-size:48rpx;">👤</text>
+    </view>
+    <text class="title">该用户暂未入驻 TeamMatch</text>
+    <text class="desc" style="margin-top:12rpx;">对方还未注册，快去邀请他加入吧</text>
+  </view>
+</view>

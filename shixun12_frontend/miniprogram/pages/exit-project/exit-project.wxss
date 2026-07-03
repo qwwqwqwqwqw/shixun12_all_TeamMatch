@@ -1,0 +1,377 @@
+page {
+  min-height: 100vh;
+  background: #F8FAFC;
+  color: #0F172A;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #F8FAFC;
+  box-sizing: border-box;
+}
+
+/* ========== 顶部导航 ========== */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 0 48rpx;
+  padding-top: 32rpx;
+  flex-shrink: 0;
+}
+
+.nav-back {
+  width: 64rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  margin-left: -16rpx;
+}
+
+.nav-back-icon {
+  width: 54rpx;
+  height: 70rpx;
+}
+
+.nav-capsule {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  height: 60rpx;
+  padding: 0 26rpx;
+  background: rgba(255, 255, 255, 0.80);
+  border-radius: 9999rpx;
+  border: 2rpx solid #F1F5F9;
+}
+
+.capsule-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: #0F172A;
+}
+
+.capsule-divider {
+  width: 2rpx;
+  height: 32rpx;
+  background: rgba(0, 0, 0, 0.10);
+}
+
+/* ========== 主要内容区 ========== */
+.content {
+  flex: 1;
+  padding: 0 48rpx;
+  padding-top: 48rpx;
+}
+
+/* ========== 头部标题 ========== */
+.header {
+  margin-bottom: 48rpx;
+}
+
+.header-eyebrow {
+  display: block;
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 600;
+  letter-spacing: 0.7rpx;
+  line-height: 40rpx;
+}
+
+.header-title {
+  display: block;
+  font-size: 60rpx;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 72rpx;
+  margin-top: 8rpx;
+}
+
+.header-desc {
+  display: block;
+  font-size: 32rpx;
+  color: #64748B;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-top: 16rpx;
+}
+
+/* ========== 项目卡片 ========== */
+.project-card {
+  background: #ffffff;
+  border-radius: 48rpx;
+  padding: 16rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 40rpx -4rpx rgba(0, 0, 0, 0.05);
+  border: 2rpx solid #F8FAFC;
+}
+
+.project-card-inner {
+  display: flex;
+  align-items: center;
+}
+
+.project-icon {
+  width: 96rpx;
+  height: 96rpx;
+  background: #EFF6FF;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.project-icon-img {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.project-info {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+
+.project-name {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 56rpx;
+}
+
+.project-subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 400;
+  line-height: 40rpx;
+  margin-top: 4rpx;
+}
+
+.project-status-tag {
+  flex-shrink: 0;
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+  font-weight: 700;
+  letter-spacing: 1rpx;
+  margin-left: 16rpx;
+}
+/* 招募中 - 绿色 */
+.project-status-tag.recruiting {
+  background: rgba(0, 107, 92, 0.10);
+  color: #006B5C;
+}
+/* 进行中 - 蓝色 */
+.project-status-tag.in_progress {
+  background: rgba(0, 88, 187, 0.10);
+  color: #0058BB;
+}
+/* 已结束 - 灰色 */
+.project-status-tag.ended {
+  background: rgba(194, 198, 213, 0.30);
+  color: #727784;
+}
+
+/* ========== 警告提示条 ========== */
+.warning-bar {
+  display: flex;
+  align-items: center;
+  background: #FEF2F2;
+  border-radius: 32rpx;
+  padding: 28rpx 34rpx;
+  margin-bottom: 32rpx;
+  border: 2rpx solid #FEE2E2;
+}
+
+.warning-icon {
+  width: 32rpx;
+  height: 32rpx;
+  flex-shrink: 0;
+}
+
+.warning-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #B91C1C;
+  font-weight: 500;
+  line-height: 42rpx;
+  margin-left: 16rpx;
+}
+
+/* ========== 退出原因输入区 ========== */
+.reason-section {
+  margin-bottom: 32rpx;
+}
+
+.reason-label {
+  display: block;
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 600;
+  line-height: 40rpx;
+  margin-bottom: 16rpx;
+  margin-left: 8rpx;
+}
+
+.reason-input-wrap {
+  position: relative;
+  background: #F1F5F9;
+  border-radius: 32rpx;
+  overflow: hidden;
+}
+
+.reason-textarea {
+  width: 100%;
+  min-height: 320rpx;
+  padding: 32rpx;
+  font-size: 32rpx;
+  color: #0F172A;
+  font-weight: 400;
+  line-height: 48rpx;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.reason-placeholder {
+  color: #94A3B8;
+  font-size: 32rpx;
+  font-weight: 400;
+}
+
+.char-count {
+  position: absolute;
+  bottom: 16rpx;
+  right: 16rpx;
+  padding: 8rpx 16rpx;
+  background: rgba(255, 255, 255, 0.50);
+  border-radius: 12rpx;
+}
+
+.char-count-text {
+  font-size: 24rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  font-family: Plus Jakarta Sans, sans-serif;
+}
+
+/* ========== 底部操作区 ========== */
+.bottom-actions {
+  flex-shrink: 0;
+  padding: 48rpx 48rpx 16rpx;
+}
+
+.btn-confirm {
+  width: 100%;
+  height: 120rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 32rpx;
+  background: #EF4444;
+  color: #ffffff;
+  font-size: 36rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 12rpx -8rpx rgba(239, 68, 68, 0.20),
+              0 20rpx 30rpx -6rpx rgba(239, 68, 68, 0.20);
+}
+
+.btn-confirm::after { border: 0; }
+
+.btn-confirm[disabled] {
+  opacity: 0.6;
+  box-shadow: none !important;
+}
+
+.btn-stay {
+  display: block;
+  text-align: center;
+  font-size: 28rpx;
+  color: #94A3B8;
+  font-weight: 500;
+  line-height: 72rpx;
+  margin-top: 24rpx;
+}
+
+/* ========== 二次确认弹窗 ========== */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 560rpx;
+  background: #ffffff;
+  border-radius: 32rpx;
+  padding: 48rpx;
+  box-sizing: border-box;
+}
+
+.modal-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #0F172A;
+  text-align: center;
+  line-height: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.modal-content {
+  display: block;
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 400;
+  line-height: 44rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 24rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 96rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 96rpx;
+  text-align: center;
+}
+
+.modal-btn::after { border: 0; }
+
+.modal-btn-cancel {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+.modal-btn-confirm {
+  background: #EF4444;
+  color: #ffffff;
+}
+
+.modal-btn-confirm[disabled] {
+  opacity: 0.6;
+}

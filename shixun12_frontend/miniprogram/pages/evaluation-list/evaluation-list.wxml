@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">{{projectName}} · 互评</text>
+    <text class="hero-sub">选择一位成员进行评价</text>
+  </view>
+
+  <!-- 加载态 -->
+  <view class="state-wrap" wx:if="{{loading}}">
+    <text class="state-text">加载中...</text>
+  </view>
+
+  <!-- 错误态 -->
+  <view class="state-wrap" wx:elif="{{error}}">
+    <text class="state-text error">{{error}}</text>
+    <view class="retry-btn" bindtap="loadMembers">重试</view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="state-wrap" wx:elif="{{members.length === 0}}">
+    <text class="state-text">暂无可评价成员</text>
+    <text class="state-desc">可能所有成员已评价完毕，或互评窗口未开启</text>
+  </view>
+
+  <!-- 成员列表 -->
+  <view wx:else>
+    <view class="member-card {{item.evaluated?'evaluated':''}}" wx:for="{{members}}" wx:key="userId" bindtap="{{item.evaluated?'':'goEvaluate'}}" data-user-id="{{item.userId}}" data-nickname="{{item.nickname}}" data-evaluated="{{item.evaluated}}">
+      <view class="member-avatar">{{item.avatarText}}</view>
+      <view class="member-info">
+        <text class="member-name">{{item.nickname}}</text>
+        <text class="member-major" wx:if="{{item.major}}">{{item.major}}</text>
+        <text class="member-credit">信誉 {{item.creditScore}}</text>
+      </view>
+      <text class="eval-tag" wx:if="{{item.evaluated}}">已评价</text>
+      <text class="card-arrow" wx:else>›</text>
+    </view>
+  </view>
+</view>

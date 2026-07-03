@@ -1,0 +1,95 @@
+<!--pages/projects/create/create.wxml-->
+<wxs module="u">
+function hasSkill(skills, id) {
+  if (!skills) return false
+  for (var i = 0; i < skills.length; i++) {
+    if (skills[i] === Number(id)) return true
+  }
+  return false
+}
+module.exports = { hasSkill: hasSkill }
+</wxs>
+
+<view class="page">
+  <!-- 固定头部区 -->
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TeamMatch · Projects</text>
+      <text class="hd-title">发布新项目</text>
+      <text class="hd-desc">填写以下信息，找到最合适的队友</text>
+    </view>
+  </view>
+
+  <!-- 内容可滑动区 -->
+  <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="card">
+      <!-- 项目标题 -->
+      <view class="form-item">
+        <text class="form-label">项目标题</text>
+        <input class="form-input" placeholder="请输入项目标题" placeholder-class="ph" maxlength="30" value="{{form.title}}" bindinput="onInputChange" data-field="title"/>
+      </view>
+
+      <!-- 项目描述 -->
+      <view class="form-item">
+        <text class="form-label">项目描述</text>
+        <textarea class="form-textarea" placeholder="详细描述你的项目目标、技术栈、预期成果等" placeholder-class="ph" value="{{form.description}}" bindinput="onInputChange" data-field="description" maxlength="500"/>
+        <text class="textarea-counter">{{form.description.length || 0}}/500</text>
+      </view>
+
+      <!-- 所属板块 -->
+      <view class="form-item">
+        <text class="form-label">所属板块</text>
+        <picker mode="selector" range="{{boardList}}" range-key="name" value="{{boardIndex}}" bindchange="onBoardChange">
+          <view class="picker-view">
+            {{boardIndex !== -1 ? boardList[boardIndex].name : '请选择板块'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 项目人数 -->
+      <view class="form-item">
+        <text class="form-label">招募人数（含队长）：{{form.maxMembers}} 人</text>
+        <slider min="2" max="10" value="{{form.maxMembers}}" bindchange="onMemberChange" show-value="{{false}}" block-size="20" activeColor="#0058BB" backgroundColor="#ECEDF7"/>
+      </view>
+
+      <!-- 技能需求 -->
+      <view class="form-item">
+        <text class="form-label">技能需求</text>
+        <view class="skill-options">
+          <view class="skill-tag {{u.hasSkill(form.skills, item.id) ? 'active' : ''}}" wx:for="{{skillTagList}}" wx:key="id" data-id="{{item.id}}" bindtap="onSkillToggle">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 截止日期 -->
+      <view class="form-item form-item-last">
+        <text class="form-label">招募截止日期</text>
+        <view style="display:flex;align-items:center;gap:16rpx;">
+          <picker mode="date" start="{{minDate}}" end="2027-12-31" value="{{form.deadline}}" bindchange="onDateChange">
+            <view class="picker-view" style="flex:1;">
+              {{form.deadline || '请选择日期'}}
+            </view>
+          </picker>
+          <picker mode="time" value="{{form.deadlineTime}}" bindchange="onTimeChange">
+            <view class="picker-view" style="width:160rpx;flex-shrink:0;text-align:center;">
+              {{form.deadlineTime}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <!-- 错误信息 -->
+    <view class="err" wx:if="{{errorMsg}}">
+      <text class="err-txt">{{errorMsg}}</text>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="btn-wrap">
+      <button class="submit-btn" bindtap="submitForm" loading="{{submitting}}" disabled="{{submitting}}">
+        发布项目
+      </button>
+    </view>
+  </scroll-view>
+</view>

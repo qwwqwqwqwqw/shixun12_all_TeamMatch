@@ -1,0 +1,91 @@
+<!--pages/projects/detail/detail.wxml-->
+<view class="page">
+  <!-- 固定头部区（与参考页面一致的吸顶结构） -->
+  <view class="page-sticky">
+    <view class="hd">
+      <text class="hd-sub">TeamMatch · Projects</text>
+      <text class="hd-title">项目详情</text>
+      <text class="hd-desc">查看项目信息，了解团队详情</text>
+    </view>
+  </view>
+
+  <!-- 加载态 -->
+  <view class="st-wrap" wx:if="{{loading}}">
+    <view class="ld-spin"></view>
+    <text class="st-txt">加载中...</text>
+  </view>
+
+  <!-- 内容区 -->
+  <block wx:if="{{project && !loading}}">
+    <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- 项目头部卡片 -->
+      <view class="card">
+        <view class="card-header">
+          <text class="project-title">{{project.title}}</text>
+          <text class="status-tag {{project.status}}">{{project.statusText}}</text>
+        </view>
+        <view class="meta-row">
+          <text class="meta-item">{{project.boardName}}</text>
+          <text class="meta-item">{{project.currentMembers}}/{{project.maxMembers}} 人</text>
+          <text class="meta-item">截止 {{project.deadline}}</text>
+        </view>
+      </view>
+
+      <!-- 项目描述卡片 -->
+      <view class="card">
+        <text class="card-title">项目描述</text>
+        <text class="card-content">{{project.description}}</text>
+      </view>
+
+      <!-- 技能需求卡片 -->
+      <view class="card">
+        <text class="card-title">技能需求</text>
+        <view class="skill-tags" wx:if="{{project.skills && project.skills.length > 0}}">
+          <text class="skill-tag" wx:for="{{project.skills}}" wx:key="*this" wx:for-item="skill">{{skill}}</text>
+        </view>
+        <text wx:else class="card-content" style="color:#999;font-size:26rpx;">暂无</text>
+      </view>
+
+      <!-- 现有成员卡片 -->
+      <view class="card">
+        <text class="card-title">现有成员 ({{project.currentMembers}}/{{project.maxMembers}})</text>
+        <view class="member-list">
+          <view class="member-item" wx:for="{{project.members}}" wx:key="id" bindtap="viewMember" data-id="{{item.id}}">
+            <view class="member-avatar">
+              <image wx:if="{{item.avatar && item.avatar.length > 10}}" class="member-avatar-img" src="{{item.avatar}}" mode="aspectFill" />
+              <text wx:else class="member-avatar-txt">{{item.name ? item.name.slice(0, 1) : '?'}}</text>
+            </view>
+            <text class="member-name">{{item.name}}</text>
+            <text class="member-role {{item.role === '队长' ? 'leader' : ''}}">{{item.role}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 发布者信息卡片 -->
+      <view class="card">
+        <text class="card-title">发布者</text>
+        <view class="creator-info">
+          <view class="creator-avatar">
+            <image wx:if="{{project.creatorAvatar && project.creatorAvatar.length > 10}}" class="creator-avatar-img" src="{{project.creatorAvatar}}" mode="aspectFill" />
+            <view wx:else class="creator-avatar-txt">{{project.creatorName ? project.creatorName.slice(0, 1) : '?'}}</view>
+          </view>
+          <view class="creator-detail">
+            <text class="creator-name">{{project.creatorName || '未知用户'}}</text>
+            <text class="creator-date">发布于 {{project.createdAt}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar" wx:if="{{project.status === 'recruiting' && !project.isCreator}}">
+      <button class="apply-btn" bindtap="applyJoin">申请加入</button>
+    </view>
+    <view class="bottom-bar" wx:elif="{{project.isCreator}}">
+      <button class="apply-btn" disabled>这是你的项目</button>
+    </view>
+    <view class="bottom-bar" wx:else>
+      <button class="apply-btn" disabled>已无法申请</button>
+    </view>
+  </block>
+</view>

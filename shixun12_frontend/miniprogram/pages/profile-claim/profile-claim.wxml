@@ -1,0 +1,39 @@
+<!--pages/profile-claim/profile-claim.wxml-->
+<view class="page-bg">
+  <!-- 加载态 -->
+  <view class="loading-box" wx:if="{{loading}}">
+    <view class="ld-spin"></view>
+    <text class="load-txt">加载中...</text>
+  </view>
+
+  <!-- 内容区 -->
+  <block wx:else>
+    <scroll-view class="sv" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- Hero 区域 -->
+      <view class="hero">
+        <text class="eyebrow">TeamMatch · 档案认领</text>
+        <text class="title">认领技术画像</text>
+        <text class="desc">完成认证，让你的技术实力被更多人看到</text>
+      </view>
+
+      <!-- 步骤引导 -->
+      <view class="step-list">
+        <view class="step-card" wx:for="{{steps}}" wx:key="step">
+          <view class="step-indicator">
+            <text class="step-num">{{item.step}}</text>
+          </view>
+          <view class="step-info">
+            <text class="step-title">{{item.title}}</text>
+            <text class="step-desc">{{item.desc}}</text>
+          </view>
+          <button class="step-btn" bindtap="{{item.action}}">{{item.btnText}}</button>
+        </view>
+      </view>
+
+      <!-- 底部说明 -->
+      <view class="footer-tip">
+        <text class="tip-text">认领后你将出现在技术榜单中，获得更多组队机会</text>
+      </view>
+    </scroll-view>
+  </block>
+</view>

@@ -1,0 +1,451 @@
+/*
+ * 所有样式值从 Figma 原型图直接提取（390px 画布）：
+ * 背景: #F9F9FF; 卡片白底 + 圆角12px + 阴影0p4px12px rgba(0,0,0,0.03) + 描边#F2F3FC
+ * 标题色: #191C22; 次要色: #424753; 次要灰: #727784
+ * 主色蓝: #0058BB; 绿色: #006B5C; 灰色: #C2C6D5; 暖色: #FFDCC1/#6C3A00
+ */
+
+page {
+  width: 100%;
+  min-height: 100vh;
+  background: #F9F9FF;
+  color: #191C22;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: #F9F9FF;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+}
+
+/* ========== 吸顶固定区（与 T-031 一致） ========== */
+.page-sticky {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 32rpx 0 0;
+  box-sizing: border-box;
+}
+
+/* ========== 头部 ========== */
+.hd-sub {
+  display: block;
+  text-align: center;
+  font-size: 32rpx;
+  color: #727784;
+  font-weight: 500;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 48rpx;
+}
+
+.hd-title {
+  display: block;
+  text-align: center;
+  font-size: 40rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 56rpx;
+  margin-top: 32rpx;
+}
+
+.hd-desc {
+  display: block;
+  text-align: center;
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-top: 16rpx;
+}
+
+/* ========== 加载/错误 ========== */
+.st-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
+  padding-bottom: 120rpx;
+  box-sizing: border-box;
+}
+
+.st-txt {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+}
+
+.retry-btn {
+  width: 160rpx;
+  height: 64rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 32rpx;
+  background: #0058BB;
+  color: #ffffff;
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 64rpx;
+}
+.retry-btn::after { border: 0; }
+
+.ld-spin {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid #e0e0e0;
+  border-top-color: #0058BB;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ========== 可滑动区（与 T-031 一致） ========== */
+.sv {
+  flex: 1;
+  width: 100%;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* ========== 通用卡片 ========== */
+.card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.03);
+  border: 2rpx solid #F2F3FC;
+  box-sizing: border-box;
+  margin-bottom: 24rpx;
+  padding: 34rpx;
+}
+
+/* === 成员信息 === */
+.card:first-of-type {
+  display: flex;
+  align-items: flex-start;
+}
+
+.av {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.av image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.av-txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 88, 187, 0.10);
+  color: #0058BB;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.mi {
+  flex: 1;
+  margin-left: 24rpx;
+  min-width: 0;
+}
+
+.mi-name {
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 56rpx;
+  margin-bottom: 4rpx;
+}
+
+.mi-trust {
+  display: inline-flex;
+  padding: 8rpx 16rpx;
+  background: rgba(216, 226, 255, 0.30);
+  border-radius: 16rpx;
+}
+
+.mi-trust-txt {
+  font-size: 32rpx;
+  color: #0058BB;
+  font-weight: 400;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 48rpx;
+}
+
+/* === 倒计时 === */
+.cd-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.cd-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.cd-num {
+  font-size: 36rpx;
+  color: #0058BB;
+  font-weight: 400;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 56rpx;
+}
+
+.cd-sub {
+  display: block;
+  text-align: center;
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 48rpx;
+  margin-top: 16rpx;
+}
+
+/* === 投票统计 === */
+.st-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.st-hd-l {
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 700;
+  line-height: 48rpx;
+}
+
+.st-hd-r {
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 48rpx;
+}
+
+.st-bar {
+  margin-bottom: 40rpx;
+}
+.st-bar:last-child { margin-bottom: 0; }
+
+.st-bar-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 48rpx;
+}
+
+.st-bar-num {
+  font-size: 32rpx;
+  font-weight: 700;
+  font-family: Plus Jakarta Sans, sans-serif;
+  line-height: 48rpx;
+}
+.st-bar-num.grn { color: #006B5C; }
+.st-bar-num.gry { color: #727784; }
+
+.st-bar-trk {
+  width: 100%;
+  height: 16rpx;
+  background: #ECEDF7;
+  border-radius: 9999rpx;
+  overflow: hidden;
+}
+
+.st-bar-fill {
+  height: 100%;
+  border-radius: 9999rpx;
+}
+.st-bar-fill.grn { background: #006B5C; }
+.st-bar-fill.gry { background: #C2C6D5; }
+
+/* === 已投票成员 === */
+.vt-title {
+  display: block;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 700;
+  line-height: 48rpx;
+  margin-bottom: 32rpx;
+}
+
+.vt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64rpx;
+  margin-bottom: 24rpx;
+}
+.vt-row:last-child { margin-bottom: 0; }
+
+.vt-row-l {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.vt-av {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.vt-av-txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 88, 187, 0.10);
+  color: #0058BB;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.vt-name {
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 48rpx;
+}
+
+.vt-ch {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  line-height: 48rpx;
+}
+.vt-ch.grn { color: #006B5C; }
+.vt-ch.gry { color: #727784; }
+
+.vt-ch-icon {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+/* === 投票按钮 === */
+.vote-btns {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.btn-vote {
+  flex: 1;
+  height: 108rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-vote::after { border: 0; }
+
+.btn-yn {
+  background: #006B5C;
+  color: #ffffff;
+  box-shadow: 0 8rpx 12rpx -8rpx rgba(0, 107, 92, 0.20),
+              0 20rpx 30rpx -6rpx rgba(0, 107, 92, 0.20);
+}
+
+.btn-nn {
+  background: rgba(194, 198, 213, 0.30);
+  color: #424753;
+  border: 2rpx solid rgba(194, 198, 213, 0.20);
+}
+
+.btn-vote[disabled] {
+  opacity: 0.6;
+  box-shadow: none !important;
+}
+
+/* === 已投票提示 === */
+.voted-tip {
+  text-align: center;
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-bottom: 24rpx;
+  padding: 24rpx;
+}
+
+/* === 关闭投票 === */
+.close-wrap {
+  text-align: center;
+  padding: 32rpx 0 48rpx;
+  display: flex;
+  justify-content: center;
+  gap: 48rpx;
+}
+
+.close-link {
+  font-size: 32rpx;
+  color: #727784;
+  font-weight: 400;
+  line-height: 48rpx;
+}
+
+.cancel-link {
+  font-size: 32rpx;
+  color: #DC2626;
+  font-weight: 500;
+  line-height: 48rpx;
+}
+
+/* === 投票结果横幅 === */
+.result-card { padding: 0; overflow: hidden; }
+
+.result-banner {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 32rpx 34rpx;
+}
+
+.result-pass { background: linear-gradient(135deg, rgba(0, 107, 92, 0.08), rgba(0, 107, 92, 0.04)); }
+.result-reject { background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.04)); }
+
+.result-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.result-pass .result-icon { background: #006B5C; color: #fff; }
+.result-reject .result-icon { background: #EF4444; color: #fff; }
+
+.result-info { flex: 1; min-width: 0; }
+.result-title { display: block; font-size: 32rpx; font-weight: 700; line-height: 44rpx; }
+.result-pass .result-title { color: #006B5C; }
+.result-reject .result-title { color: #DC2626; }
+.result-desc { display: block; font-size: 26rpx; color: #727784; line-height: 36rpx; margin-top: 4rpx; }

@@ -1,0 +1,41 @@
+<!--pages/login/login.wxml-->
+<view class="welcome-container">
+  <!-- 应用 Logo 和名称 -->
+  <view class="logo-area">
+    <image class="logo" src="/assets/CodeBuddyAssets/1_18/1.svg" mode="aspectFit" />
+    <text class="app-name">TeamMatch</text>
+    <text class="app-desc">校园组队，靠谱协作</text>
+  </view>
+
+  <!-- 功能简介 -->
+  <view class="features">
+    <view class="feature-item">
+      <text class="feature-icon">🔍</text>
+      <text class="feature-text">发现靠谱项目与队友</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">📝</text>
+      <text class="feature-text">沉淀个人技术档案</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">⭐</text>
+      <text class="feature-text">积累信誉，提升影响力</text>
+    </view>
+  </view>
+
+  <!-- 进入按钮 -->
+  <button class="enter-btn" type="primary" bindtap="goToLogin">
+    立即体验
+  </button>
+
+  <!-- 协议勾选 -->
+  <view class="agreement {{shakeAgree ? 'shake' : ''}}">
+    <view class="checkbox {{agreed ? 'checked' : ''}}" bindtap="toggleAgreed">
+      <text wx:if="{{agreed}}" class="check-icon">✓</text>
+    </view>
+    <text class="agreement-text" catchtap="toggleAgreed">已阅读并同意</text>
+    <text class="agreement-link" catchtap="showUserAgreement">《用户协议》</text>
+    <text class="agreement-text">和</text>
+    <text class="agreement-link" catchtap="showPrivacyPolicy">《隐私政策》</text>
+  </view>
+</view>

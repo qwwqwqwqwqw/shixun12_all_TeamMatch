@@ -1,0 +1,75 @@
+<view class="page" wx:if="{{isAuthenticated && !isLeader}}">
+  <!-- 主要内容区 -->
+  <view class="content">
+    <!-- 头部标题 -->
+    <view class="header">
+      <text class="header-eyebrow">TEAMMATCH</text>
+      <text class="header-title">退出项目</text>
+      <text class="header-desc">请确认你要退出该项目</text>
+    </view>
+
+    <!-- 项目卡片 -->
+    <view class="project-card">
+      <view class="project-card-inner">
+        <view class="project-icon">
+          <image class="project-icon-img" src="/assets/CodeBuddyAssets/87_792/5.svg" mode="aspectFit" />
+        </view>
+        <view class="project-info">
+          <text class="project-name">{{projectTitle}}</text>
+          <text class="project-subtitle">{{projectSubtitle}}</text>
+        </view>
+        <view class="project-status-tag {{projectStatus}}">{{projectStatusText}}</view>
+      </view>
+    </view>
+
+    <!-- 警告提示 -->
+    <view class="warning-bar" wx:if="{{projectStatus === 'in_progress'}}">
+      <image class="warning-icon" src="/assets/CodeBuddyAssets/87_792/6.svg" mode="aspectFit" />
+      <text class="warning-text">主动退出将扣除 10 分 信誉分，且不可撤销。</text>
+    </view>
+
+    <!-- 退出原因输入区 -->
+    <view class="reason-section">
+      <text class="reason-label">退出原因</text>
+      <view class="reason-input-wrap">
+        <textarea
+          class="reason-textarea"
+          placeholder="请简要说明退出原因（选填）"
+          placeholder-class="reason-placeholder"
+          maxlength="{{maxLength}}"
+          value="{{reason}}"
+          bindinput="onReasonInput"
+          auto-height
+        />
+        <view class="char-count">
+          <text class="char-count-text">{{reason.length}}/{{maxLength}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作区 -->
+  <view class="bottom-actions">
+    <button
+      class="btn-confirm"
+      disabled="{{submitting || projectStatus === 'ended'}}"
+      loading="{{submitting}}"
+      bindtap="onConfirmTap"
+    >{{submitting ? '处理中...' : (projectStatus === 'ended' ? '项目已结束' : '确认退出')}}</button>
+  </view>
+
+  <!-- 二次确认弹窗 -->
+  <view class="modal-mask" wx:if="{{showConfirm}}" catchtouchmove="noop">
+    <view class="modal">
+      <text class="modal-title">确认退出</text>
+      <text class="modal-content">
+        <block wx:if="{{projectStatus === 'in_progress'}}">主动退出将扣除 10 分信誉分，且不可撤销。确定要退出吗？</block>
+        <block wx:else>确定要退出该项目的招募吗？</block>
+      </text>
+      <view class="modal-actions">
+        <button class="modal-btn modal-btn-cancel" bindtap="onCancelConfirm">再想想</button>
+        <button class="modal-btn modal-btn-confirm" loading="{{submitting}}" disabled="{{submitting}}" bindtap="onDoExit">确定退出</button>
+      </view>
+    </view>
+  </view>
+</view>

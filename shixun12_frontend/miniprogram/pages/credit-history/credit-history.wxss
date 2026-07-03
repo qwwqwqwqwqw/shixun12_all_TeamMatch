@@ -1,0 +1,406 @@
+page {
+  width: 100%;
+  min-height: 100vh;
+  background: #F9F9FF;
+  color: #191C22;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: #F9F9FF;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+}
+
+/* ========== 吸顶固定区 ========== */
+.page-sticky {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 32rpx 0 0;
+  box-sizing: border-box;
+}
+
+/* ========== 头部 ========== */
+.hd-sub {
+  display: block;
+  font-size: 22rpx;
+  color: #0058BB;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+  letter-spacing: 2.2rpx;
+  line-height: 34rpx;
+}
+
+.hd-title {
+  display: block;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 48rpx;
+  margin-top: 8rpx;
+}
+
+.hd-desc {
+  display: block;
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  line-height: 44rpx;
+  margin-top: 4rpx;
+  margin-bottom: 24rpx;
+}
+
+/* ========== 状态屏 ========== */
+.state-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 120rpx;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.loading-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid #e0e0e0;
+  border-top-color: #0058BB;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #999;
+  font-size: 26rpx;
+  line-height: 36rpx;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.error-text {
+  color: #999;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  text-align: center;
+  padding: 0 40rpx;
+}
+
+.retry-btn {
+  width: 160rpx;
+  height: 64rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 32rpx;
+  background: #0058BB;
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 64rpx;
+}
+.retry-btn::after { border: 0; }
+
+/* ========== 可滑动区 ========== */
+.sv {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-bottom: 32rpx;
+}
+
+/* 隐藏滚动条 */
+.sv::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ========== 信誉分总览卡片 ========== */
+.score-card {
+  width: 100%;
+  padding: 40rpx 0 36rpx;
+  margin-bottom: 32rpx;
+  background: linear-gradient(149deg, #E0EBFF 0%, #F2F3FC 100%);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.03);
+  border-radius: 24rpx;
+  outline: 2rpx solid #D8E2FF;
+  outline-offset: -2rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.score-value-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.score-value {
+  font-size: 120rpx;
+  color: #0058BB;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+  line-height: 1;
+  text-align: center;
+}
+
+.live-badge {
+  width: 40rpx;
+  height: 24rpx;
+  background: #0058BB;
+  border-radius: 9999rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 8rpx;
+}
+
+.live-text {
+  font-size: 18rpx;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+}
+
+.score-label {
+  display: block;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 44rpx;
+  margin-top: 12rpx;
+  text-align: center;
+}
+
+.init-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rpx 28rpx;
+  margin-top: 12rpx;
+  background: rgba(255, 255, 255, 0.60);
+  border-radius: 9999rpx;
+  outline: 2rpx solid rgba(255, 255, 255, 0.50);
+  outline-offset: -2rpx;
+}
+
+.init-text {
+  font-size: 28rpx;
+  color: #424753;
+  font-weight: 500;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+}
+
+/* ========== 变化记录标题 ========== */
+.record-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.record-header-title {
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 400;
+  line-height: 44rpx;
+}
+
+/* ========== 记录列表 ========== */
+.record-list {
+  width: 100%;
+}
+
+/* ========== 单条记录卡片 ========== */
+.record-card {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 28rpx 28rpx;
+  margin-bottom: 24rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.03);
+  border-radius: 24rpx;
+  outline: 2rpx solid #C2C6D5;
+  outline-offset: -2rpx;
+  box-sizing: border-box;
+}
+
+/* ========== 左侧图标 ========== */
+.icon-wrap {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 24rpx;
+}
+
+.icon-symbol {
+  font-size: 36rpx;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+}
+
+/* 加分类型图标 */
+.icon-evaluation {
+  background: rgba(104, 250, 221, 0.30);
+}
+.icon-evaluation .icon-symbol {
+  color: #006B5C;
+}
+
+/* 扣分类型图标 */
+.icon-self_exit {
+  background: rgba(255, 218, 214, 0.30);
+}
+.icon-self_exit .icon-symbol {
+  color: #BA1A1A;
+}
+
+.icon-exit_vote {
+  background: rgba(255, 218, 214, 0.30);
+}
+.icon-exit_vote .icon-symbol {
+  color: #BA1A1A;
+}
+
+.icon-penalty {
+  background: #ECEDF7;
+}
+.icon-penalty .icon-symbol {
+  color: #424753;
+}
+
+/* 申诉恢复 */
+.icon-appeal_restore {
+  background: #D8E2FF;
+}
+.icon-appeal_restore .icon-symbol {
+  color: #0058BB;
+}
+
+/* ========== 中间文本 ========== */
+.record-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.record-desc-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.record-desc {
+  display: block;
+  font-size: 32rpx;
+  color: #191C22;
+  font-weight: 700;
+  line-height: 48rpx;
+}
+
+.suspend-badge {
+  height: 34rpx;
+  padding: 0 10rpx;
+  background: #D8D9E3;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.suspend-text {
+  font-size: 20rpx;
+  color: #424753;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.record-source {
+  display: block;
+  font-size: 32rpx;
+  color: #424753;
+  font-weight: 400;
+  line-height: 44rpx;
+  margin-top: 4rpx;
+}
+
+.record-time {
+  display: block;
+  font-size: 22rpx;
+  color: #727784;
+  font-weight: 400;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+  line-height: 36rpx;
+  margin-top: 4rpx;
+}
+
+/* ========== 右侧变化数值 ========== */
+.value-area {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  padding-top: 8rpx;
+}
+
+.change-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", "PingFang SC", sans-serif;
+  line-height: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.change-value.positive {
+  color: #006B5C;
+}
+
+.change-value.negative {
+  color: #BA1A1A;
+}
+
+.change-value.suspended {
+  opacity: 0.6;
+}
+
+/* ========== 空状态 ========== */
+.empty-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+}

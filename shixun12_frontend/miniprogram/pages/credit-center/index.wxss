@@ -1,0 +1,40 @@
+page { background: #F9F9FF; color: #191C22; }
+
+.page { padding: 16px; }
+
+.hero { margin-bottom: 20px; }
+.hero-title { display: block; font-size: 20px; font-weight: 700; color: #191C22; }
+.hero-sub { display: block; font-size: 13px; color: #424753; margin-top: 4px; }
+
+/* Score card */
+.score-card { border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.score-green { background: linear-gradient(135deg, #10B981, #059669); }
+.score-orange { background: linear-gradient(135deg, #F59E0B, #D97706); }
+.score-red { background: linear-gradient(135deg, #EF4444, #DC2626); }
+
+.score-ring { margin-bottom: 12px; }
+.score-num { display: block; font-size: 48px; font-weight: 700; color: #fff; }
+.score-label { display: block; font-size: 14px; color: rgba(255,255,255,0.80); margin-top: 4px; }
+
+.score-detail { display: inline-flex; align-items: center; gap: 4px; padding: 6px 16px; border-radius: 20px; background: rgba(255,255,255,0.20); }
+.score-link { font-size: 13px; color: #fff; }
+.score-arrow { font-size: 13px; color: #fff; }
+
+/* Grid */
+.grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.grid-item { width: calc(50% - 6px); background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 12px; border: 1px solid rgba(194,198,213,0.30); padding: 20px; box-sizing: border-box; text-align: center; }
+.grid-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; font-weight: 700; }
+.icon-red { background: rgba(239,68,68,0.10); color: #EF4444; }
+.icon-blue { background: rgba(0,88,187,0.10); color: #0058BB; }
+.icon-orange { background: rgba(245,158,11,0.10); color: #F59E0B; }
+.icon-green { background: rgba(16,185,129,0.10); color: #10B981; }
+.grid-title { display: block; font-size: 16px; font-weight: 600; color: #191C22; margin-bottom: 4px; }
+.grid-desc { display: block; font-size: 12px; color: #727784; }
+
+/* Card link */
+.card { display: flex; align-items: center; justify-content: space-between; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 12px; border: 1px solid rgba(194,198,213,0.30); padding: 17px; }
+.card-left { display: flex; align-items: center; gap: 12px; }
+.card-icon { font-size: 28px; }
+.card-title { display: block; font-size: 15px; font-weight: 600; color: #191C22; }
+.card-desc { display: block; font-size: 13px; color: #424753; }
+.card-arrow { font-size: 22px; color: #C2C6D5; }

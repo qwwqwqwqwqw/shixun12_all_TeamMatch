@@ -1,0 +1,5 @@
+# 单元测试 / CI：覆盖主配置中的 OSS 默认密钥，避免误创建 OSS 客户端
+aliyun:
+  oss:
+    access-key-id:
+    access-key-secret:
